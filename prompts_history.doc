@@ -1,0 +1,271 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>Prompt History</title>
+<style>
+  body { font-family: "Malgun Gothic", "NanumGothic", sans-serif; line-height: 1.6; }
+  h1 { color: #2E74B5; font-size: 18pt; margin-top: 30px; border-bottom: 2px solid #2E74B5; padding-bottom: 5px; }
+  h2 { color: #1F4E79; font-size: 14pt; margin-top: 20px; }
+  pre { background-color: #F8F9FA; padding: 15px; font-family: "Malgun Gothic", sans-serif; white-space: pre-wrap; font-size: 10.5pt; border: 1px solid #DEE2E6; border-radius: 5px; color: #333; }
+  .empty-note { color: #888; font-style: italic; font-size: 10pt; }
+</style>
+</head>
+<body>
+
+<h1>@웹사이트 생성</h1>
+
+<h2>-디자인</h2>
+<pre>
+[System Instruction & Aesthetic Theme]
+- Brand Identity: (주)비에이텍 (BAtech Co., Ltd.) - Water Pump Manufacturing, Installation, and Maintenance Specialist.
+- Visual Tone: Premium industrial and engineering design. Main accent colors are Deep Trust Navy (#0A2540) representing high reliability, Clean Steel Grey (#F4F6F8) for a clean background, and Vivid Electric Cyan (#00D4B2) for modern high-tech highlights.
+- Layout Strategy: Maintain the existing structured grid framework and structural consistency, while replacing content with the updated components below.
+
+# Role & Context
+You are an expert web designer and front-end developer specializing in creating highly professional, clean, and modern industrial B2B enterprise websites. Your task is to design/generate a responsive, visually stunning single-page or multi-tab website for "(주)비에이텍" (BAtech Co., Ltd.), a leading South Korean enterprise specializing in water pump manufacturing, installation, and maintenance.
+
+# Design Tone & Aesthetics
+- **Color Palette:** Professional Deep Blue (representing water technology and trust), Slate Gray (industrial strength), and Clean White (modernity).
+- **Typography:** Modern Sans-Serif (such as Pretendard or NanumGothic) with crisp line-heights and highly readable typography scales.
+- **Vibe:** Highly structured, enterprise-grade, authoritative, and technologically advanced. All main copy and operational interfaces must be in **Korean (한국어)**.
+</pre>
+
+<h2>-탭그룹</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-견적 / 제작 문의</h2>
+<pre>
+# SECTION 4: Fast Quote & Production Inquiry (신속 견적 및 제작문의)
+*Build an interactive, modern, clean inquiry form with an explicit, secure file-attachment field for uploading schematics, design files, or photos.*
+
+### [신속 견적 및 제작문의 양식 구성 요소]
+- **회사명 / 성함 (Company Name / Name):** 입력 필드 (Input field)
+- **연락처 (Contact Number):** 입력 필드 (Input field)
+- **이메일 (Email):** 입력 필드 (Input field)
+- **문의 구분 (Inquiry Type):** 드롭다운 선택 (펌프 제작 구매 / 신규 설치 공사 / 노후 펌프 수리 및 유지보수 / 기타)
+- **상세 문의 내용 (Inquiry Details):** 텍스트 영역 (Textarea)
+- **도면 및 참고 파일 첨부 (File Attachment Area):**
+  - **설명:** "도면, 도서 또는 문제 펌프의 사진(PDF, JPG, JPEG)을 첨부해 주세요."
+  - **기능:** 드래그 앤 드롭 영역(Drag & Drop Area) 또는 파일 선택 버튼 구성.
+  - **지원 형식 제약 조건 표시:** `*.pdf`, `*.jpg`, `*.jpeg` (최대 파일 크기: 10MB)
+  - **UI 디자인:** 깔끔한 점선 테두리 상자(dashed border)와 구름모양 업로드 아이콘 배치.
+- **개인정보 수집 및 동의 체크박스** 및 **"견적 문의 접수하기"** 전송 버튼.
+</pre>
+
+<h2>-지도</h2>
+<pre>
+## 2. GEOLOCATION & MAP COMPONENT (PRECISE COORDINATES)
+- **Current Issue:** Map marker renders at an incorrect/offset location.
+- **Update Instruction:**
+  - Update the Map API integration (Kakao Map / Google Maps widget) using precise geocoding for the corporate headquarters.
+  - **Target Address:** 64, Toegyegongdan 2-gil, Chuncheon-si, Gangwon-do, Republic of Korea (강원 춘천시 퇴계공단2길 64, 퇴계제2농공단지내).
+  - **Coordinates:** Latitude `37.854890`, Longitude `127.733650`.
+  - **Marker Label:** "(주)비에이텍 (BIATEC Co., Ltd.)"
+  - **UI Detail:** Display an interactive info window above the pin showing the exact address, corporate phone number, and a direct linking button to KakaoNavi/Naver Map.
+
+사이트 내 지도 미리보기에서 이상한곳에 마크가 되어있어. 확실하게 ' 강원 춘천시 퇴계공단2길 64'를 마크한 지도가 완성되면 좋겠는데. 퇴계2농공단지 내의 강원 춘천시 퇴계공단2길 64야.
+
+퇴계 2 농공단지 ' 강원 춘천시 퇴계공단2길 64'라고 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ 이상한곳에 자꾸 찍혀있다고...
+
+위도(Latitude): 37.842775 (37° 50' 33.99" N)
+경도(Longitude): 127.742352 (127° 44' 32.47" E)
+로 지도에 찍어줘
+</pre>
+
+<h1>@이미지 관련</h1>
+
+<h2>-동영상</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-카드뉴스, 브로슈어</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-메인페이지</h2>
+<pre>
+### PART 1: Main Page Hero Section (Revised)
+- Eliminate the text phrase "B2B industrial solutions" from all headings, subtitles, and labels.
+- Replace with a refined, highly-focused Korean-English branding structure that highlights manufacturing and engineering authority:
+  * Hero Main Title: "기술과 신뢰로 물의 흐름을 지휘하다, (주)비에이텍"
+  * Hero Subtitle: "Custom Water Pump Manufacturing, Precision Installation, and Expert Maintenance. Engineering high-durability hydraulic systems that power core industries."
+  * Action Buttons (CTAs): "제품 라인업 (View Products)" [Primary Accent] / "수리 및 견적 문의 (Inquiry)" [Outline Button]
+</pre>
+
+
+<h1>@내용</h1>
+
+<h2>-회사소개</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-ESG 기업</h2>
+<pre>
+## 3. COMPANY INTRODUCTION: ECO-FRIENDLY ESG SHEET
+- **Placement:** Append a dedicated "Eco-Friendly ESG Management" sheet within the 'Company Profile (회사소개)' section.
+- **Design Philosophy:** Clean, sustainable, professional corporate identity. Use a refined green and slate-gray accent palette.
+- **Content Structure:**
+  - **Title:** Sustainable Water Technology (친환경 ESG 경영)
+  - **Subtitle:** "Leading the future of eco-friendly water systems with high-efficiency, zero-emission engineering."
+  - **Core ESG Pillars (Grid Layout):**
+    1. **E (Environmental):**
+  - **재해 예방 및 안전 우선:** 도심 침수 방지용 대형 배수 펌프 및 안정적인 상수도 공급 펌프 설비를 적기에 납품 및 수리하여 지역사회의 안전한 주거 환경을 수호합니다.
+  - **안전한 작업 환경 구축:** 모든 제품 제조 및 현장 설치 공정에서 산업안전 보건 기준을 엄격히 준수합니다.
+* **G (Governance - 투명하고 신뢰받는 경영):**
+  - **투명한 조달 및 계약 납품:** 지자체 및 공공기관의 엄격한 상하수도 관급 자재 납품 기준을 통과한 신뢰도 높은 윤리 경영 프로세스를 실천합니다.
+</pre>
+
+<h2>-연혁</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-제품</h2>
+<pre>
+### PART 2: Product & Technology Page - Production Pump Lineup (Revised)
+- Keep the current high-end card grid layout. Replace all default pump descriptions and image assets with the authorized 11-pump lineup from the 'BAtech_pump_product_summary' documentation.
+- Visual Assets Direction: Each pump card must depict a premium, hyper-realistic 3D industrial render of the specific pump type, placed on a clean, minimal, non-distracting studio white background.
+
+* Card 1: 다단벌류트펌프 (Multistage Volute Pump)
+  - Description: 고압 이송에 적합하며, 여러 단의 임펠러를 장착하여 안정적인 압력과 유동 제어를 지원합니다. (Suitable for high-pressure transfer, generating stable system pressure through multiple impeller stages.)
+* Card 8: 슬러지펌프 (Sludge Pump)
+  - Description: 고점도의 슬러지 및 고형 폐기물이 대량 포함된 거친 슬러지를 원활히 이송하도록 설계된 내구형 제품입니다. (Heavy-duty pump designed to pump high-viscosity sludge and abrasive slurry mixtures with maximum durability.)
+* Card 9: 심정용펌프 (Deep Well Submersible Pump)
+  - Description: 깊은 지하수 취수에 특화되어 있으며, 직경이 좁은 관정 내부에서도 흔들림 없는 고양정 양수를 지원합니다. (Specially engineered for deep well groundwater extraction, securing high-head water lifting in tight-bore wells.)
+* Card 10: 전진공동펌프 (Progressive Cavity Pump)
+  - Description: 점성이 극도로 높은 유체라도 맥동 없이 부드럽게 이송하며, 정밀한 양을 지속해서 보내는 데 최적입니다. (Smoothly transfers high-viscosity media with minimal pulsation, ideal for steady and precise volumetric flow.)
+* Card 11: 부스터펌프 (Booster Pump System)
+  - Description: 복수의 펌프와 제어반을 결합하여, 고층 빌딩과 대형 상업 시설에 항상 정밀하고 일정한 수압을 유지합니다. (Maintains constant water pressure for high-rise buildings and commercial complexes through an integrated multi-pump system with a smart control panel.)
+
+# SECTION 1: Product & Tech Lineup (제품 및 기술 소개)
+*Design a beautiful card-based grid showcasing the primary pump product lineup of (주)비에이텍. Ensure each card contains a high-quality placeholder image, structured specifications, and a clean interface.*
+Use text and image ‘BAtech_pump_product_summary.pdf’
+
+주요 생산 펌프 라인업에서 제품 보여줄때 
+'BAtech_pump_product_summary.pdf'의 이미지를 각 제품에 맞게 사용하라고...
+
+제품 및 기술 페이지에서
+주요 생산 펌프 라인업파트의 이미지가 안보이는 현상이있어.
+업로드한 ‘product_pngs’의 파일에 있는 png파일을 제품에 맞게 이미지를 삽입해줘.
+</pre>
+
+<h2>-실적</h2>
+<pre>
+# SECTION 2: Major Project Records (주요 사업 실적)
+*Create a beautifully styled, interactive data table displaying the business delivery records. Add a search bar or filter so users can query by client (발주처) or pump type.*
+
+| 번호 | 발주처 | 건명 | 납품일자 | 비고 |
+| :--- | :--- | :--- | :--- | :--- |
+| **419** | 철원군농업기술센터 | 2019년 철원 대마지구(대마리990번지) 수리시설 정비사업 수중펌프 | 2019 | 관급 납품 완료 |
+| **418** | 철원군농업기술센터 | 2019년 만경보 수중펌프 | 2019.07 | 관급 납품 완료 |
+| **417** | 삼척시하수도사업소 | 읍상빗물펌프장 펌프 수리수선 | 2019.06 | 긴급 복구 및 정비 |
+
+## 5. REINFORCED BUSINESS PORTFOLIO & TRACK RECORD SHEET
+- **Placement:** Update the existing "Business Track Record (주요 사업 실적)" section.
+- **Design Philosophy:** Keep the current minimalist and organized structure, but expand the content density to reflect deep industrial expertise.
+- **Structured Project Records:**
+  - **Water Infrastructure Engineering (상하수도 및 공공 설비):**
+    - Municipal Water Treatment Plant Pump Installation & Optimization (Chuncheon-si Waterworks Office)
+    - Regional Sewage Treatment Facility Pumping System Turnkey Construction
+    - Deep Well Groundwater Development Projects (Agricultural Infrastructure Corporation)
+  - **Industrial Facility & Equipment Supply (산업체 및 생산 설비):**
+    - High-Pressure Boiler Feed 펌프 Installation for Regional Cogeneration Plants
+    - Corrosion-Resistant Chemical/Sludge Pump System Integration for Major Chemical Plants
+    - Emergency Firefighting Pumping Systems & Pressure Maintenance Stations
+  - **Maintenance & Reconstruction (유지보수 및 긴급 수리 실적):**
+    - Comprehensive Overhaul & Calibration of Large-scale Municipal Double Suction Pumps
+    - Variable Frequency Drive (VFD) Booster System Retrofitting for Energy Efficiency Upgrades
+    - 24/7 Rapid Emergency Response Repair Records for Regional Waterway Infrastructures
+</pre>
+
+<h2>-자주묻는질문</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+
+<h1>@파일 업로드</h1>
+
+<h2>-직원 전용 자료실</h2>
+<pre>
+좋아. 'dashboard.html'을 직원 전용 자료실에 추가해줘.
+</pre>
+
+<h2>-비밀번호</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-행정서식</h2>
+<pre>
+행정 서식 및 문서 양식
+</pre>
+
+<h2>-notebooklm 활용 AI 메뉴얼</h2>
+<pre>
+기술 자료 및 AI 매뉴얼 검색(notebooklm 사이트와 연결)
+</pre>
+
+<h2>-통합 관제 대시보드</h2>
+<pre>
+Create a highly professional, modern Enterprise Resource & Operations Dashboard for "(주)비에이텍" (Viatech Co., Ltd.), a specialized water pump manufacturing, installation, and repair company. 
+
+The dashboard must be a single-page responsive web application (HTML/CSS with embedded JavaScript for interactive elements) optimized for desktop and tablet screens, featuring an industrial yet clean aesthetic.
+
+### BRAND IDENTITY & COLORS
+- Primary: Navy Blue (#1A3A5C) - Represents water technology, engineering expertise, and institutional trust.
+- Secondary: Steel Blue & Mint Green (#2E6B9E, #2ECC71) - Used for progress bars and active statuses.
+- Accent: Crimson Red (#E74C3C) - Used for urgent alerts, critical inventory depletion, and safety warnings.
+- Background: Very light grayish-blue (#F5F7FA) with clean white (#FFFFFF) card containers.
+
+### LAYOUT STRUCTURE (3-Column Grid)
+The design must feature a structured 3-column layout:
+
+1. Left Sidebar (Navigation & Profile)
+- Top: Viatech Company Logo and Employee Profile Card (name, department, quick logout).
+- Middle: Vertical Navigation Menu with smooth hover transitions (Dashboard, Material Inventory, Vehicle Booking, Safety Manuals).
+- Bottom: Quick access links for "AI Tech Document Search (NotebookLM Quick link)" and "Administrative Forms Download" with download icons.
+
+2. Center Main Area (Operational Dashboard)
+- Top: Three KPI (Key Performance Indicator) Cards:
+  a. Today's Dispatches (오늘의 출동 건수) - showing a bright green counter badge.
+  b. Pending Inquiries (대기 중인 고객 문의) - showing a yellow counter badge.
+  c. Urgent Notice Banner (긴급 공지) - with an animated pulsing red dot.
+- Middle Left (Timeline): "Real-time Dispatch & A/S Schedule" showing vertical timeline cards with step badges (Received -> Assigned -> In Progress -> Completed) using distinct color tags.
+- Middle Right (Inventory Widget): "Real-time Material & Pump Parts Stock" showing key inventory (Motors, Valves, Pipes) with dynamic Progress Bars. When a stock level is below 20%, the bar turns Crimson Red with a blinking "Low Stock" alert tag.
+
+3. Right Sidebar (Utility & Support)
+- Top: "Company Vehicle & Equipment Booking" showing a interactive calendar/time-grid of available vehicles (Unit 1, Unit 2) with booked/available time blocks.
+- Middle: "Today's Safety Rules & Equipment Checklist" - Visual, easy-to-read cards reminding workers of mandatory safety gear (Helmets, Safety Boots, Gloves) with illustrative checkmarks.
+- Bottom: "Recent Notices & Directory Search" with a fast live search input for internal employee contacts.
+
+### INTERACTIVE FEATURES (Pure JS)
+- Toggle tabs or expand categories without reloading the page.
+- Make the booking grid responsive on hover.
+- Make checkboxes in the Safety Checklist interactive (strikethrough when checked).
+- Clean, premium CSS styling with NanumGothic or system sans-serif fonts, using shadow-sm and rounded-lg classes for a modern dashboard look. NO external framework libraries except for FontAwesome icons.
+
+dashboard.html에 전 화면으로 돌아갈 수 잇는 버튼도 추가해줘
+</pre>
+
+<h2>-문의사항 현황</h2>
+<pre>
+고객 문의사항 종합 현황은 꼭 포함되어야해
+</pre>
+
+
+<h1>@그 외</h1>
+
+<h2>-챗봇</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-BGM</h2>
+<pre>
+## 1. AUDIO ENGINE & BGM CONTROLLER (MUTE BUG FIX)
+- **Current Issue:** BGM volume only decreases incrementally but fails to trigger complete mute (0.0 volume).
+- **Update Instruction:** 
+  - Refactor the custom HTML5 Audio node or background music state manager. 
+  - Ensure the "Mute" toggle button sets `audio.muted = true` and explicitly sets `audio.volume = 0`.
+  - Provide a clear icon state change on the UI: Dynamic Soundwave Icon (when active) ⭢ Muted/Slash Speaker Icon (when muted).
+  - Implement smooth transition handling: transition volume exponentially to 0 over 150ms to prevent clipping artifacts, then apply hard mute state.
+</pre>
+
+<h2>-검색토글</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+<h2>-업스크롤</h2>
+<p class="empty-note">(해당 카테고리의 명시적인 프롬프트 기록 없음)</p>
+
+</body>
+</html>

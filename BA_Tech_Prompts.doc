@@ -1,0 +1,437 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>사용자 프롬프트 정리 내역</title>
+<style>
+body { font-family: "Malgun Gothic", "Nanum Gothic", sans-serif; line-height: 1.6; }
+h1 { font-size: 20pt; color: #0A2540; border-bottom: 2px solid #00D4B2; padding-bottom: 5px; }
+h2 { font-size: 16pt; color: #2E6B9E; margin-top: 30px; }
+h3 { font-size: 14pt; color: #1A3A5C; font-weight: bold; margin-top: 20px; }
+.prompt { background-color: #F5F7FA; padding: 15px; border-left: 4px solid #2ECC71; border-radius: 4px; margin-bottom: 20px; white-space: pre-wrap; word-wrap: break-word; font-size: 11pt; color: #333; }
+</style>
+</head>
+<body>
+
+<h1>사용자 프롬프트 아카이브 (비에이텍 웹사이트)</h1>
+
+<h2>@웹사이트 생성</h2>
+
+<h3>- 디자인</h3>
+<div class="prompt">
+웹 디자이너이자 프론트엔드 개발자로서, 기업의 신뢰도를 강조하는 세련된 다중 페이지(Multi-page) 웹사이트를 제작하려고 해. antigravity 스크롤 라이브러리를 사용할 예정이며, 아래 기획안에 맞춰 **공통 CSS(style.css)**와 각 페이지별 HTML 소스코드를 작성해줘.
+
+1. 전체 구조 및 네비게이션 (GNB)
+메인 메뉴(1Depth) 및 하위 메뉴(2Depth) 구조:
+회사소개 (회사소개, 연혁)
+제품 (설비장비, 기술자료)
+실적 및 인증 (사업실적, 인증/특허)
+자주묻는질문 (FAQ)
+특이사항: '직원전용(자료실)' 메뉴는 일반 사용자의 시선을 방해하지 않도록 GNB 우측 상단 끝에 별도의 작은 버튼 형태로 배치해줘.
+
+2. 페이지별 디자인 포인트
+회사소개 (about.html): 텍스트보다는 기업의 신뢰도를 보여주는 고해상도 이미지 중심의 배경 레이아웃을 잡아줘.
+제품 (products.html): [핵심] 설비 이미지 리스트를 카드 형태로 배치하고, 각 카드마다 PDF 기술서 다운로드 버튼이나 모달 연동 링크를 포함해줘.
+실적 및 인증 (performance.html): 실적과 기술력을 '성과'라는 하나의 흐름으로 묶어 그리드 형태나 타임라인으로 보여줘.
+자주묻는질문 (faq.html): 아코디언 스타일의 게시판 형태로 가독성 있게 구성해줘.
+
+3. 기술적 요구사항 및 스타일
+다중 페이지 방식: 각 메뉴 클릭 시 내부 앵커 이동이 아닌 about.html, products.html 등 별개 파일로 완전히 전환되어야 해.
+Antigravity 연출: 페이지 전체에 감각적인 여백과 부드러운 인터랙션이 느껴지도록 CSS 변수와 Flex/Grid를 활용해줘.
+디자인 톤: 신뢰감을 주는 딥 네이비(Deep Navy)와 화이트를 주색상으로 사용하고, 포인트 컬러로 세련된 실버나 블루를 써서 전문성을 강조해줘.
+우선 공통 레이아웃이 포함된 index.html과 style.css를 먼저 작성해주고, 이어서 나머지 서브 페이지들의 핵심 구조를 순차적으로 알려줘.
+</div>
+<div class="prompt">
+1. Role & Context (역할 및 맥락)
+Role: Professional B2B Industrial UI/UX Designer.
+Brand Identity: 비에이텍 (BA Tech) - 산업용 워터펌프 전문 기업.
+Core Value: 신뢰성, 전문성, 24시간 긴급 대응.
+
+2. Visual & Hero Section (비주얼 및 헤더 설정)
+Header Navigation:
+좌측 상단에 로고 배치.
+메인 메뉴 구성: 기업소개, 사업영역, 제품소개, 고객지원.
+CTA Button: 우측 상단에 '24시간 긴급수리 문의' 버튼을 선명한 강조 색상(예: 대비가 높은 오렌지 또는 블루)으로 배치하여 시각적으로 분리할 것.
+
+Hero Section UI:
+Background: 산업용 펌프 혹은 공정 이미지 사용. 단, 텍스트 가독성을 위해 이미지 위에 30~40% 농도의 어두운 오버레이(Black Overlay)를 적용할 것.
+Typography: 메인 타이틀은 굵은 고딕 계열(Bold Sans-serif)로 "워터펌프 전문 기업, 비에이텍"을 중앙에 배치.
+Value Proposition: 메인 타이틀 하단에 "설계부터 긴급 수리까지, 산업용 워터펌프의 모든 것"이라는 서브 타이틀을 배치하여 서비스 범위를 즉각적으로 알릴 것.
+
+3. UX Strategy (사용자 경험 전략)
+Information Architecture: 방문자가 '신뢰성'을 느낄 수 있도록 전문적인 폰트와 여백(White Space)을 충분히 활용할 것.
+Responsiveness: 모든 요소는 모바일 환경에서도 '긴급 수리 문의' 버튼이 최상단에 고정(Sticky)되도록 설계할 것.
+</div>
+<div class="prompt">
+[System Instruction & Aesthetic Theme]
+- Brand Identity: (주)비에이텍 (BAtech Co., Ltd.) - Water Pump Manufacturing, Installation, and Maintenance Specialist.
+- Visual Tone: Premium industrial and engineering design. Main accent colors are Deep Trust Navy (#0A2540) representing high reliability, Clean Steel Grey (#F4F6F8) for a clean background, and Vivid Electric Cyan (#00D4B2) for modern high-tech highlights.
+- Layout Strategy: Maintain the existing structured grid framework and structural consistency, while replacing content with the updated components below.
+
+### PART 1: Main Page Hero Section (Revised)
+- Eliminate the text phrase "B2B industrial solutions" from all headings, subtitles, and labels.
+- Replace with a refined, highly-focused Korean-English branding structure that highlights manufacturing and engineering authority:
+  * Hero Main Title: "기술과 신뢰로 물의 흐름을 지휘하다, (주)비에이텍"
+  * Hero Subtitle: "Custom Water Pump Manufacturing, Precision Installation, and Expert Maintenance. Engineering high-durability hydraulic systems that power core industries."
+  * Action Buttons (CTAs): "제품 라인업 (View Products)" [Primary Accent] / "수리 및 견적 문의 (Inquiry)" [Outline Button]
+</div>
+
+<h3>- 탭그룹</h3>
+<div class="prompt">
+메인 메뉴(1Depth) 및 하위 메뉴(2Depth) 구조:
+회사소개 (회사소개, 연혁)
+제품 (설비장비, 기술자료)
+실적 및 인증 (사업실적, 인증/특허)
+자주묻는질문 (FAQ)
+특이사항: '직원전용(자료실)' 메뉴는 일반 사용자의 시선을 방해하지 않도록 GNB 우측 상단 끝에 별도의 작은 버튼 형태로 배치해줘.
+</div>
+
+<h3>- 견적 / 제작 문의</h3>
+<div class="prompt">
+2. NEW: Quick Contact Form (Main Page Integration)
+- Integrate a highly visible, conversion-focused "Quick Contact" (바로 연락하기 / 견적 문의) section directly on the main page.
+- Fields needed: Name/Company Name (회사/성함), Contact Number (연락처), Inquiry Type (문의 유형: 제작/설치/수리), and Short Message (문의 내용).
+- Design it with a clean form layout, prominent 'Submit' button, and clear click-to-call links/buttons for mobile users.
+</div>
+<div class="prompt">
+# SECTION 4: Fast Quote & Production Inquiry (신속 견적 및 제작문의)
+Build an interactive, modern, clean inquiry form with an explicit, secure file-attachment field for uploading schematics, design files, or photos.
+
+[신속 견적 및 제작문의 양식 구성 요소]
+- 회사명 / 성함 (Company Name / Name): 입력 필드 (Input field)
+- 연락처 (Contact Number): 입력 필드 (Input field)
+- 이메일 (Email): 입력 필드 (Input field)
+- 문의 구분 (Inquiry Type): 드롭다운 선택 (펌프 제작 구매 / 신규 설치 공사 / 노후 펌프 수리 및 유지보수 / 기타)
+- 상세 문의 내용 (Inquiry Details): 텍스트 영역 (Textarea)
+- 도면 및 참고 파일 첨부 (File Attachment Area):
+  설명: "도면, 도서 또는 문제 펌프의 사진(PDF, JPG, JPEG)을 첨부해 주세요."
+  기능: 드래그 앤 드롭 영역(Drag & Drop Area) 또는 파일 선택 버튼 구성.
+  지원 형식 제약 조건 표시: *.pdf, *.jpg, *.jpeg (최대 파일 크기: 10MB)
+  UI 디자인: 깔끔한 점선 테두리 상자(dashed border)와 구름모양 업로드 아이콘 배치.
+- 개인정보 수집 및 동의 체크박스 및 "견적 문의 접수하기" 전송 버튼.
+</div>
+<div class="prompt">
+[Context: LocalStorage 데이터 연동 오류 해결]
+메인 페이지의 '신속 견적 및 제작문의' 제출 데이터가 직원 전용 페이지의 '고객 문의사항 종합 현황' 테이블에 연동되지 않는 문제가 발생했습니다. 두 페이지가 동일한 도메인(브라우저 환경) 내에서 localStorage를 통해 완벽히 동기화되도록 아래의 기술적 요구사항을 반영하여 코드를 교차 검증하고 수정해 주세요.
+
+1. 메인 페이지: '신속 견적 및 제작문의' 제출 로직 검증 (데이터 저장)
+폼 제출 이벤트 핸들링: 폼이 제출될 때 페이지가 새로고침되어 데이터가 날아가지 않도록 반드시 e.preventDefault()를 처리하세요.
+배열 누적(Push) 로직 보장: 기존에 저장된 데이터가 사라지고 마지막 입력만 남는 오류를 방지해야 합니다.
+localStorage.getItem('customerInquiries')로 기존 배열을 먼저 가져옵니다. 데이터가 없다면 빈 배열([])로 초기화하고, 있다면 JSON.parse()로 파싱합니다.
+새로운 문의 객체를 배열에 push()하거나 최신순 정렬을 위해 배열 맨 앞(unshift())에 추가합니다.
+최종 배열을 JSON.stringify()하여 다시 'customerInquiries' 키로 저장하세요.
+</div>
+
+<h3>- 지도</h3>
+<div class="prompt">
+지도 API 교체 (네이버 지도 iframe 임베드 방식)
+* 내용: 기존 구글 지도를 삭제하고, API 키 발급이 필요 없는 네이버 지도의 공유용 &lt;iframe&gt; 태그로 교체합니다.
+* UX 유지: 지도가 삽입되는 화면상의 위치, 크기(너비 및 높이), 주변 UI 레이아웃은 기존 구글 지도가 있던 형태와 100% 동일하게 유지하세요. (iframe 스타일에 width: 100%; height: 100%; 등을 적용하여 부모 컨테이너 크기에 맞춤)
+</div>
+<div class="prompt">
+주소는 이곳이다 '강원 춘천시 퇴계공단2길 64'수정 부탁할게
+</div>
+<div class="prompt">
+네이버 지도 취소 '강원 춘천시 퇴계공단2길 64' 구글 지도로 변경해줘
+</div>
+<div class="prompt">
+사이트 내 지도 미리보기에서 이상한곳에 마크가 되어있어. 확실하게 ' 강원 춘천시 퇴계공단2길 64'를 마크한 지도가 완성되면 좋겠는데. 퇴계2농공단지 내의 강원 춘천시 퇴계공단2길 64야.
+</div>
+<div class="prompt">
+퇴계 2 농공단지 ' 강원 춘천시 퇴계공단2길 64'라고 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ 이상한곳에 자꾸 찍혀있다고...
+</div>
+<div class="prompt">
+위도(Latitude): 37.842775 (37° 50' 33.99" N)
+경도(Longitude): 127.742352 (127° 44' 32.47" E)
+로 지도에 찍어줘
+</div>
+<div class="prompt">
+## 2. GEOLOCATION & MAP COMPONENT (PRECISE COORDINATES)
+- Current Issue: Map marker renders at an incorrect/offset location.
+- Update Instruction:
+  - Update the Map API integration (Kakao Map / Google Maps widget) using precise geocoding for the corporate headquarters.
+  - Target Address: 64, Toegyegongdan 2-gil, Chuncheon-si, Gangwon-do, Republic of Korea (강원 춘천시 퇴계공단2길 64, 퇴계제2농공단지내).
+  - Coordinates: Latitude `37.854890`, Longitude `127.733650`.
+  - Marker Label: "(주)비에이텍 (BIATEC Co., Ltd.)"
+</div>
+
+<h2>@이미지 관련</h2>
+
+<h3>- 동영상</h3>
+<div class="prompt">
+멀티미디어 자산 통합 (회사소개 페이지 - about.html)
+영상 콘텐츠: '비에이텍 영상'을 페이지 상단 Hero 섹션이나 브랜드 스토리 섹션에 고화질 배경 영상 또는 모달 재생 방식으로 배치해줘.
+</div>
+<div class="prompt">
+회사 소개 영상이 안들어갔잖아. 회사 소개 영상은 ‘비에이텍 영상’이야.
+</div>
+
+<h3>- 카드뉴스, 브로슈어</h3>
+<div class="prompt">
+회사 소개 페이지에 카드뉴스가 사라진 오류를 발견했어.
+‘batec_cardnews.png’를 사용해서 카드뉴스 칸을 채워.
+</div>
+<div class="prompt">
+기술 연구소 및 체계적 경영 조직 밑에 페이지에 카드뉴스와 브로슈어를 바로 볼 수 있도록 추가해줘. 지금 들어간 ‘사진대장’파일이 아니라 ‘브로슈어 최종.png’파일과 ‘비에이텍 카드뉴스 최종.png’파일이야.
+</div>
+<div class="prompt">
+Company Introduction ('About Us') Page Update:
+Section: "비에이텍 카드뉴스" (BA Tech Card News).
+Change: Remove any existing slider, grid, or text-heavy components in this section.
+Requirement: Display ONLY a single image file named 비에이텍 카드뉴스 최종.png.
+Formatting: Ensure the image is responsive (max-width: 100%) and centered, maintaining its original aspect ratio so it is clearly readable as a standalone info-graphic.
+</div>
+
+<h3>- 메인페이지</h3>
+<div class="prompt">
+홈페이지 메인 이미지를 'ChatGPT Image 2026년 6월 1일 오후 04_17_53'으로 바꿔줘
+</div>
+<div class="prompt">
+1. 메인 이미지 렌더링 엔진 수정
+* 문제: 현재 Github 페이지에서 경로 오류로 메인 이미지가 깨짐.
+* 해결: 이미지 소스 경로를 ‘사진대장+-+비에이텍(주)+공장.pdf’로 즉시 교체해. 단순 링크가 아니라 웹 화면 상단 메인 배너 영역에 가시적으로 즉시 렌더링되도록 설정해.
+</div>
+<div class="prompt">
+1. 메인 페이지 레이아웃 수정 (상단 영역 노이즈 제거)
+현황: '24시간 긴급 수리 문의' 버튼/영역이 화면 중앙과 우측 상단(GNB/헤더 영역)에 중복 존재함.
+수정 사항: 화면 우측 상단(헤더)에 배치된 '24시간 긴급 수리 문의' 바로가기 링크/버튼은 삭제해 주세요. 메인 페이지 중앙(Hero Section)에 위치한 '24시간 긴급 수리 문의' 영역은 그대로 유지하여, 사용자의 시선이 가장 중요한 핵심 서비스에 집중되도록 합니다.
+</div>
+<div class="prompt">
+3. 시작 페이지 로고 (Landing Page Logo)
+- Increase the scale/size of the main company logo significantly to maximize visual impact.
+- Adjust the layout/alignment of the landing section so that the logo effectively balances and fills the empty space on the right side of the web page.
+</div>
+<div class="prompt">
+1. 메인/시작 페이지 로고 업데이트
+* 배경이 투명하게 처리(누끼)된 새로운 로고 파일이 업로드되었습니다.
+* 파일명: batec_logo-removebg-preview.png (또는 해당 확장자)
+* 적용 방식: 기존 로고가 있던 위치에 동일한 크기와 비율(상대값 유지)로 이 새로운 로고 파일을 교체해 적용해 주세요. 레이아웃이 깨지지 않도록 여백(Margin/Padding)을 정밀하게 조정하세요.
+</div>
+
+<h2>@내용</h2>
+
+<h3>- 회사소개</h3>
+<div class="prompt">
+3. 회사 소개 페이지 전면 리뉴얼 (컨텐츠 복구)
+* 문제: 요청한 멀티미디어 파일 누락 및 가독성 저하.
+* 구현 순서:
+1. 상단: 비에이텍 영상 파일을 페이지 상단에 배치하고 자동 재생 또는 클릭 재생이 가능한 비디오 플레이어로 구현해.
+2. 중단: 비에이텍 카드뉴스 이미지들을 슬라이드(Carousel) 형태로 배치하여 시각적 흥미를 유발해.
+3. 하단: 브로슈어 최종 파일을 인라인 뷰어로 삽입하여 스크롤만으로 전체 내용을 검토할 수 있게 만들어.
+</div>
+<div class="prompt">
+4. 회사소개 페이지 콘텐츠 강화 (CEO 섹션)
+위치: 회사소개 페이지의 최상단(Hero 영역 바로 아래)에 배치합니다.
+구성: CEO 인사말: 고객에 대한 신뢰와 기술력을 강조하는 전문적인 인사말을 작성해 넣으세요.
+경영철학: (주)비에이텍의 핵심 가치(예: 기술 혁신, 정직한 서비스, 최고의 품질)를 가독성 좋은 타이포그래피로 디자인하여 포함하세요.
+</div>
+
+<h3>- ESG 기업</h3>
+<div class="prompt">
+## 3. COMPANY INTRODUCTION: ECO-FRIENDLY ESG SHEET
+- Placement: Append a dedicated "Eco-Friendly ESG Management" sheet within the 'Company Profile (회사소개)' section.
+- Design Philosophy: Clean, sustainable, professional corporate identity. Use a refined green and slate-gray accent palette.
+- Content Structure:
+  - Title: Sustainable Water Technology (친환경 ESG 경영)
+  - Subtitle: "Leading the future of eco-friendly water systems with high-efficiency, zero-emission engineering."
+  - Core ESG Pillars (Grid Layout):
+    1. E (Environmental - 친환경 펌프 기술 설계)
+    2. S (Social - 상생 경영 및 산업 안전)
+    3. G (Governance - 투명하고 신뢰받는 경영)
+</div>
+
+<h3>- 연혁</h3>
+<div class="prompt">
+메인 메뉴(1Depth) 및 하위 메뉴(2Depth) 구조:
+회사소개 (회사소개, 연혁)
+</div>
+
+<h3>- 제품</h3>
+<div class="prompt">
+제품 (products.html): [핵심] 설비 이미지 리스트를 카드 형태로 배치하고, 각 카드마다 PDF 기술서 다운로드 버튼이나 모달 연동 링크를 포함해줘.
+</div>
+<div class="prompt">
+제품 및 기술 페이지에서 주요 생산 펌프 라인업파트의 이미지가 안보이는 현상이있어.
+업로드한 ‘product_pngs’의 파일에 있는 png파일을 제품에 맞게 이미지를 삽입해줘.
+</div>
+<div class="prompt">
+주요 생산 펌프 라인업에서 제품 보여줄때 'BAtech_pump_product_summary.pdf'의 이미지를 각 제품에 맞게 사용하라고...
+</div>
+<div class="prompt">
+### PART 2: Product & Technology Page - Production Pump Lineup (Revised)
+- Keep the current high-end card grid layout. Replace all default pump descriptions and image assets with the authorized 11-pump lineup from the 'BAtech_pump_product_summary' documentation.
+- Visual Assets Direction: Each pump card must depict a premium, hyper-realistic 3D industrial render of the specific pump type, placed on a clean, minimal, non-distracting studio white background.
+* Card 1: 다단벌류트펌프 (Multistage Volute Pump)
+* Card 8: 슬러지펌프 (Sludge Pump)
+* Card 9: 심정용펌프 (Deep Well Submersible Pump)
+* Card 10: 전진공동펌프 (Progressive Cavity Pump)
+* Card 11: 부스터펌프 (Booster Pump System)
+</div>
+
+<h3>- 실적</h3>
+<div class="prompt">
+# SECTION 2: Major Project Records (주요 사업 실적)
+Create a beautifully styled, interactive data table displaying the business delivery records. Add a search bar or filter so users can query by client (발주처) or pump type.
+| 번호 | 발주처 | 건명 | 납품일자 | 비고 |
+</div>
+<div class="prompt">
+## 5. REINFORCED BUSINESS PORTFOLIO & TRACK RECORD SHEET
+- Placement: Update the existing "Business Track Record (주요 사업 실적)" section.
+- Design Philosophy: Keep the current minimalist and organized structure, but expand the content density to reflect deep industrial expertise.
+- Structured Project Records:
+  - Water Infrastructure Engineering (상하수도 및 공공 설비)
+  - Industrial Facility & Equipment Supply (산업체 및 생산 설비)
+  - Maintenance & Reconstruction (유지보수 및 긴급 수리 실적)
+</div>
+
+<h3>- 자주묻는질문</h3>
+<div class="prompt">
+자주묻는질문 (faq.html): 아코디언 스타일의 게시판 형태로 가독성 있게 구성해줘.
+</div>
+
+<h2>@파일 업로드</h2>
+
+<h3>- 직원 전용 자료실</h3>
+<div class="prompt">
+1. 직원 전용 페이지: 대시보드형 레이아웃 및 콘텐츠 추가
+* UX 목표: 복잡함을 최소화하고 가독성을 극대화하여, 직원들이 필요한 메뉴를 즉시 찾을 수 있는 '직관적인 대시보드' 형태로 구성합니다.
+* 화면 구성 및 포함 내용:
+1. 기술 자료 및 제품 매뉴얼 (우선순위 상단): 외부에 노출되지 않는 깔끔한 버튼 또는 카드 뉴스의 형태
+2. 행정 서식 및 문서 양식: 휴가 신청서, 지출 결의서, 차량 운행일지 3가지 양식
+3. 주요 공지사항: 사내 공지 리스트
+4. 사내 주소록: 부서, 이름, 직급, 연락처
+5. 문의사항 종합: 고객들의 문의 모니터링
+</div>
+<div class="prompt">
+직원전용 페이지에 윗부분때문에 기술 자료 및 AI 매뉴얼 검색이랑 행정 서식 및 문서양식이 안보여. 위에 남색 배너를 지우고 메인으로는 아이콘으로 변경해서 직원 전용 페이지 수정 부탁해.
+</div>
+
+<h3>- 비밀번호</h3>
+<div class="prompt">
+2. '직원 전용 자료실' 접근 제어 및 비밀번호 인증 구현
+동작 흐름(UX Journey):
+1. 사용자가 메뉴에서 '직원 전용 자료실'을 클릭합니다.
+2. 화면에 비밀번호 입력을 요구하는 인터페이스(비밀번호 입력 폼이 있는 전용 페이지 또는 레이어 팝업/모달)가 나타납니다.
+3. 사용자가 비밀번호를 입력하고 확인을 누릅니다.
+인증 로직 (JavaScript 구현):
+설정된 비밀번호는 0502입니다.
+비밀번호가 일치할 경우: 직원 전용 자료실 본문 페이지(staff_archive.html 또는 해당 섹션)로 매끄럽게 이동하거나 화면을 전환합니다.
+비밀번호가 틀릴 경우: "비밀번호가 일치하지 않습니다. 다시 시도해 주세요."라는 경고 메시지를 띄우고 화면 이동을 차단합니다.
+</div>
+
+<h3>- 행정서식</h3>
+<div class="prompt">
+1. 행정 서식 및 문서 양식 파트 UI/UX 개선
+* 대상 문서: '휴가 신청서', '지출 결의서', '차량 운행일지' 총 3종
+* UI 디자인: 각 문서 항목 옆에 직관적인 '다운로드 아이콘(⬇️ 또는 문서 모양)'과 [다운로드] 버튼을 명확히 배치
+
+2. 브라우저 자체 '실제 파일 다운로드' 기능 구현 (JavaScript Blob 방식)
+* 기능 요구사항: 별도의 외부 파일 링크나 서버 없이, 직원이 버튼을 클릭하면 해당 문서 양식 파일이 브라우저를 통해 실제로 다운로드되도록 구현합니다.
+* 파일명 설정:
+  휴가 신청서 클릭 시 -> 휴가신청서.doc
+  지출 결의서 클릭 시 -> 지출결의서 서식.docx
+  차량 운행일지 클릭 시 -> 차량 운행일지.docx
+
+3. 다운로드 피드백 UX 제공
+* 파일 다운로드 버튼을 클릭하면 화면에 "양식 파일이 성공적으로 다운로드되었습니다."라는 깔끔한 토스트 알림(Toast Notification)이나 안내 문구가 잠시 나타났다 사라지게 하여 사용자에게 명확한 피드백을 제공하세요.
+</div>
+
+<h3>- notebooklm 활용 AI 메뉴얼</h3>
+<div class="prompt">
+6. 직원 전용 자료실 링크 연동
+* '직원 전용 자료실' 메뉴 또는 버튼을 클릭했을 때, 새 창(target="_blank")으로 아래의 NotebookLM 주소로 즉시 안전하게 이동할 수 있도록 하이퍼링크를 연결해줘.
+연동 주소: https://notebooklm.google.com/notebook/d00c4b87-93cd-4db6-b6ef-a87954ec0ac6
+</div>
+
+<h3>- 통합 관제 대시보드</h3>
+<div class="prompt">
+Create a highly professional, modern Enterprise Resource & Operations Dashboard for "(주)비에이텍" (Viatech Co., Ltd.), a specialized water pump manufacturing, installation, and repair company.
+The dashboard must be a single-page responsive web application (HTML/CSS with embedded JavaScript for interactive elements) optimized for desktop and tablet screens, featuring an industrial yet clean aesthetic.
+
+### BRAND IDENTITY & COLORS
+- Primary: Navy Blue (#1A3A5C)
+- Secondary: Steel Blue & Mint Green (#2E6B9E, #2ECC71)
+- Accent: Crimson Red (#E74C3C)
+
+### LAYOUT STRUCTURE (3-Column Grid)
+1. Left Sidebar (Navigation & Profile)
+2. Center Main Area (Operational Dashboard)
+3. Right Sidebar (Utility & Support)
+</div>
+<div class="prompt">
+좋아. 'dashboard.html'을 직원 전용 자료실에 추가해줘. **기술 자료 및 AI 매뉴얼 검색(notebooklm 사이트와 연결)과 행정 서식 및 문서 양식, 고객 문의사항 종합 현황은 꼭 포함되어야해 **
+</div>
+<div class="prompt">
+dashboard.html에 전 화면으로 돌아갈 수 잇는 버튼도 추가해줘
+</div>
+
+<h3>- 문의사항 현황</h3>
+<div class="prompt">
+2. 직원 전용 페이지: '고객 문의사항 종합 현황' 로드 로직 검증 (데이터 출력)
+자동 렌더링 스크립트 트리거: 페이지가 로드될 때(window.onload 또는 DOMContentLoaded 이벤트) 실행되는 초기화 함수를 반드시 포함하세요.
+테이블 렌더링 구현: localStorage.getItem('customerInquiries')를 읽어와 데이터가 존재할 경우 JSON.parse()로 변환합니다.
+종합 현황 테이블의 &lt;tbody&gt; 요소를 선택하여, 기존의 더미 데이터(HTML에 하드코딩된 내용)를 비우고(innerHTML = '') 배열을 순회하며 &lt;tr&gt;과 &lt;td&gt; 태그로 채워 넣으세요.
+저장된 데이터가 없을 경우 "접수된 문의사항이 없습니다."라는 안내 문구가 테이블에 한 줄로 표시되도록 예외 처리를 해주세요.
+</div>
+
+<h2>@그 외</h2>
+
+<h3>- 챗봇</h3>
+<div class="prompt">
+5. 우측 하단 고정 챗봇(Chatbot) UI 및 기능 구현
+* 웹페이지 오른쪽 아래에 항상 고정되어 있는(Fixed) 플로팅 챗봇 아이콘 및 채팅창 UI를 띄워줘.
+* 이 챗봇은 사용자가 질문했을 때, ‘유지관리 지침서’ 문서 데이터들을 기반으로 하여 전문적이고 정확한 대답을 출력할 수 있도록 백엔드/AI 프롬프트 컨텍스트를 설계해줘.
+</div>
+<div class="prompt">
+4. 챗봇(Chatbot) UI 복구 및 고정
+* 문제: 현재 챗봇 UI가 화면에서 사라짐.
+* 해결: 화면 우측 하단(Bottom-Right)에 챗봇 아이콘을 Z-index를 최상위로 설정하여 어떤 컨텐츠 위에서도 보이도록 고정(Fixed)해.
+* 연동: 기존에 제공된 '유지관리 지침서' 데이터를 기반으로 즉각 답변이 가능한 인터페이스를 활성화해
+</div>
+
+<h3>- BGM</h3>
+<div class="prompt">
+2. 오디오 기능 (전체 공통 - index.html 외)
+배경음악: 'Crystal Water Echoes.mp3'를 웹사이트 배경음악으로 삽입해줘.
+뮤트 컨트롤러: 화면 우측 하단이나 GNB 근처에 음악을 켜고 끌 수 있는(Play/Pause) 작고 세련된 아이콘 버튼을 만들어줘.
+디테일: 페이지가 전환되어도 음악 설정(On/Off)이 유지되도록 간단한 LocalStorage 활용 로직이나 오디오 제어 스크립트를 포함해줘.
+</div>
+<div class="prompt">
+'bgm toogle'이 아예 멈춰있다. bgm을 키고 끌 수 있도록 만들어줘라
+</div>
+<div class="prompt">
+## 1. AUDIO ENGINE & BGM CONTROLLER (MUTE BUG FIX)
+- Current Issue: BGM volume only decreases incrementally but fails to trigger complete mute (0.0 volume).
+- Update Instruction:
+  - Refactor the custom HTML5 Audio node or background music state manager.
+  - Ensure the "Mute" toggle button sets `audio.muted = true` and explicitly sets `audio.volume = 0`.
+  - Provide a clear icon state change on the UI: Dynamic Soundwave Icon (when active) ⭢ Muted/Slash Speaker Icon (when muted).
+  - Implement smooth transition handling: transition volume exponentially to 0 over 150ms to prevent clipping artifacts, then apply hard mute state.
+</div>
+
+<h3>- 검색토글</h3>
+<div class="prompt">
+1. GNB 내 '통합 검색' 기능 추가 (돋보기 아이콘 및 검색 로직)
+UI 배치: 메인 페이지 상단 메뉴(GNB)의 '직원 전용 자료실' 바로 옆에 깔끔한 **돋보기 모양 아이콘(또는 검색바)**을 배치하세요. 기존 헤더 디자인과 조화를 이루도록 스타일을 맞춥니다.
+UX 동작 흐름:
+1. 사용자가 돋보기 아이콘을 클릭하면 검색어를 입력할 수 있는 슬라이딩 검색창 또는 모달 팝업이 나타납니다.
+2. 사용자가 키워드(예: "회사소개", "수리", "견적", "펌프", "자료실" 등)를 입력하고 엔터를 누르거나 검색 버튼을 클릭합니다.
+검색 및 페이지 이동 로직 (JavaScript 구현):
+사용자가 입력한 검색어와 자바스크립트 내의 키워드를 대조하여, 유사하거나 일치하는 키워드가 발견되면 해당 데이터가 있는 페이지(또는 특정 HTML 섹션 ID)로 즉시 윈도우 창을 이동(window.location.href)시키세요.
+</div>
+<div class="prompt">
+돋보기 아이콘이 잘 보이지 않는다. 정사각형 흰색 네모 안에 돋보기가 들어가서 잘 보이게 해줬으면 좋겠다.
+</div>
+
+<h3>- 업스크롤</h3>
+<div class="prompt">
+2. 전 페이지 공통 'Top 버튼(최상단 이동)' 기능 추가
+UI 배치: 화면 우하단에 위치한 기존 **'챗봇 아이콘' 바로 옆(또는 위)**에 나란히 배치합니다.
+아이콘 형태는 원형 또는 사각형 버튼으로 하되, 안에는 시인성이 좋은 **위쪽 방향 화살표(↑)**를 넣어줍니다. 전체적인 톤앤매너는 챗봇 아이콘 및 사이트 메인 컬러와 통일감을 줍니다.
+UX 동작 흐름 및 기능 (JavaScript 구현):
+사용자가 스크롤을 아래로 내릴 때만 자연스럽게 나타나고(Fade-in), 스크롤이 맨 위에 있을 때는 화면을 가리지 않도록 숨겨지는(Fade-out) 인터페이스를 구현하세요.
+해당 화살표 아이콘을 클릭하면, 페이지가 뚝 끊기듯 이동하지 않고 최상단(Top)으로 부드럽게 스크롤링(window.scrollTo({top: 0, behavior: 'smooth'}))되며 올라가야 합니다.
+이 기능은 메인 페이지뿐만 아니라 웹사이트 내 모든 페이지에 공통 적용되도록 구현해 주세요.
+</div>
+
+</body>
+</html>
