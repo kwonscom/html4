@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자주묻는질문 | (주)비에이텍</title>
+    <meta name="description" content="(주)비에이텍 펌프 장비의 자가 진단 방법, 유지보수 주기, AS 정책 및 주문 제작 설계 관련 자주 묻는 질문 답변을 모았습니다.">
+    
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons: FontAwesome 6 & Lucide -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Smooth Scroll: Lenis CDN -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+</head>
+<body>
+
+    <!-- Header & GNB (Global Navigation Bar) -->
+    <header id="header">
+        <div class="container navbar">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="droplets"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">(주)비에이텍</span>
+                    <span class="logo-sub">B-ATEC Engineering</span>
+                </div>
+            </a>
+
+            <!-- GNB Navigation Menu (1Depth & 2Depth) -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">회사소개</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="about.html" class="dropdown-link">회사소개</a></li>
+                        <li class="dropdown-item"><a href="about.html#history" class="dropdown-link">연혁</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="products.html" class="nav-link">제품 및 기술</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="products.html" class="dropdown-link">설비장비</a></li>
+                        <li class="dropdown-item"><a href="products.html#tech-data" class="dropdown-link">기술자료</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="performance.html" class="nav-link">실적 및 인증</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="performance.html" class="dropdown-link">사업실적</a></li>
+                        <li class="dropdown-item"><a href="performance.html#certs" class="dropdown-link">인증/특허</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="faq.html" class="nav-link" style="color: var(--accent);">자주묻는질문</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="faq.html" class="dropdown-link">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Staff Access Button removed as per request -->
+
+            <!-- Hamburger Button for Mobile -->
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Dropdown Panel -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul class="mobile-menu-list">
+            <li class="mobile-nav-item">
+                <a href="about.html" class="mobile-nav-link">회사소개</a>
+                <ul class="mobile-submenu">
+                    <li><a href="about.html" class="mobile-submenu-link">회사소개</a></li>
+                    <li><a href="about.html#history" class="mobile-submenu-link">연혁</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="products.html" class="mobile-nav-link">제품 및 기술</a>
+                <ul class="mobile-submenu">
+                    <li><a href="products.html" class="mobile-submenu-link">설비장비</a></li>
+                    <li><a href="products.html#tech-data" class="mobile-submenu-link">기술자료</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="performance.html" class="mobile-nav-link">실적 및 인증</a>
+                <ul class="mobile-submenu">
+                    <li><a href="performance.html" class="mobile-submenu-link">사업실적</a></li>
+                    <li><a href="performance.html#certs" class="mobile-submenu-link">인증/특허</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="faq.html" class="mobile-nav-link">자주묻는질문</a>
+            </li>
+        </ul>
+        <!-- Mobile Utility removed as per request -->
+    </nav>
+
+    <!-- Subpage Hero -->
+    <section class="sub-hero">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2070" alt="FAQ 히어로 배경" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; opacity:0.35;">
+        <div class="container" style="position: relative; z-index: 3;">
+            <div class="sub-hero-content">
+                <h1 class="reveal">자주묻는질문</h1>
+                <p class="reveal font-outfit">Frequently Asked Questions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accordion FAQ Board Section -->
+    <section class="section-padding" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">FAQ Board</span>
+                <h2 class="section-title">궁금한 점을 확인하세요</h2>
+                <p class="section-desc">비에이텍 펌프 시스템 점검 관리법 및 고객지원 정책을 상세하게 안내해 드립니다.</p>
+            </div>
+
+            <!-- Accordion Wrapper -->
+            <div class="faq-accordion reveal">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-header">
+                        <span>Q1. 펌프가 급작스럽게 가동 중단되었습니다. 자가 진단 방법이 있나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            가장 먼저 모터 전원 제어 패널(인버터 디스플레이)에 나타나는 에러 코드를 점검해 주세요. 과부하 차단 장치(EOCR) 작동 시 트립 스위치를 해제해 보시고, 재차 동일 현상이 나타나면 임펠러 기계적 이물질 끼임이나 축 베어링 마모 등의 심각한 요인이 있을 수 있습니다. 무리한 기동은 모터 소손을 가져오니 본사 기술 CS센터(T. 033-264-9243)로 연락 접수해 주십시오.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-header">
+                        <span>Q2. 제품 사후관리(A/S) 범위와 무상 서비스 보증 조건이 어떻게 되나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            설치 가동 완료 및 인도 확인서 서명일 기준 12개월(1년) 무상 하자보수를 기본 보증합니다. 다만 사용처 임의 조작, 가혹한 기동 조건 무시(펌프 내부 물이 없는 건식 구동 'Dry Run'), 정격 허용 압력 초과 작동, 또는 천재지변 및 낙뢰 등에 의한 내부 전기 회로부 소손에 대해서는 보증 기간 내여도 유상 서비스로 처리될 수 있습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-header">
+                        <span>Q3. 펌프 기기 수명을 연장하기 위한 정기 점검 주기는 어떻게 되나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            고속 연속 회전하는 가압/부스터 펌프의 경우, 6개월 주기로 구동 전류 전압의 위상 안정성 검사 및 축 베어링 그리스(윤활유) 진단을 추천합니다. 1년 단위로는 기밀 실링 역할을 담당하는 메카니컬 씰(Mechanical Seal) 누수율 검사 및 기계 축의 고정 편차(Alignment) 교정을 수행하셔야 돌발 휴지 리스크를 차단 가능합니다. 상세 조치는 당사 **[기술자료실]**에 구비된 **정량펌프 유지관리 지침서** 파일을 내려받아 참조하시기 바랍니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-header">
+                        <span>Q4. 내부식 특수 도장 및 특화된 유체 사양 주문 생산 설계도 진행하나요?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="faq-content-inner">
+                            네, 진행합니다. 가공 유체의 성상(부식성 화학 약품, 특수 폐수, 해수 등) 및 사용 온도 범위에 알맞도록 펌프 주물 몸체 내벽에 테플론/폴리에스터 에폭시 가공 도장을 거쳐 공급하고 있습니다. 사용 희망 유량과 배관 내경 등의 도면 요건 및 pH 정보를 당사 기술연구소 이메일이나 문의 폼으로 전달해 주시면 맞춤 견적 설계를 제공합니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="floating-orbs">
+            <div class="floating-orb orb-blue"></div>
+            <div class="floating-orb orb-dark"></div>
+        </div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon" style="background: var(--accent);">
+                            <i data-lucide="droplets"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-title">(주)비에이텍</span>
+                            <span class="logo-sub" style="color: var(--white); opacity: 0.6;">B-ATEC Engineering</span>
+                        </div>
+                    </a>
+                    <p class="footer-desc">
+                        비에이텍은 정밀 공학 연구와 무결점 고객 지원을 바탕으로 공공 인프라 및 대형 플랜트 펌프 기술의 선두에 서 있습니다.
+                    </p>
+                </div>
+                <div class="footer-links-col">
+                    <h5 class="footer-links-title">주요 메뉴</h5>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">회사소개</a></li>
+                        <li><a href="products.html" class="footer-link">제품 및 기술</a></li>
+                        <li><a href="performance.html" class="footer-link">실적 및 인증</a></li>
+                        <li><a href="faq.html" class="footer-link">자주묻는질문</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h5 class="footer-links-title">기술 센터</h5>
+                    <ul class="footer-links">
+                        <li><a href="maintenance_guide.pdf" class="footer-link" target="_blank">유지관리 지침서 (PDF)</a></li>
+                        <li><a href="company_profile.pdf" class="footer-link" target="_blank">비에이텍 지명원 (PDF)</a></li>
+                        <li><a href="brochure.pdf" class="footer-link" target="_blank">카탈로그/브로슈어 (PDF)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-info">
+                    <span>(주)비에이텍 | 대표이사: 조세연 | 사업자등록번호: 221-81-79342</span>
+                    <span>본사 및 공장: 강원특별자치도 춘천시 퇴계공단2길 64</span>
+                    <span>T. 033-264-9243 | F. 033-264-9244</span>
+                </div>
+                <p class="copyright">&copy; 2026 B-ATEC Co., Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Layout Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Lenis Smooth Scroll Initialisation
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Header Transparency on Scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger Menu Logic (Mobile Nav)
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Intersection Observer for scroll entrance animations (Reveal)
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15
+        });
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // FAQ Accordion Interlocking
+        const faqHeaders = document.querySelectorAll('.faq-header');
+        faqHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                
+                // Toggle current item
+                item.classList.toggle('active');
+                
+                // Close other items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="audio-control.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

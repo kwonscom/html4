@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)비에이텍 - Enterprise Operations Dashboard</title>
+    
+    <!-- Fonts and Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1A3A5C;
+            --secondary: #2E6B9E;
+            --success: #2ECC71;
+            --warning: #F1C40F;
+            --danger: #E74C3C;
+            --bg-color: #F5F7FA;
+            --white: #FFFFFF;
+            --text-main: #2C3E50;
+            --text-muted: #7F8C8D;
+            --border-color: #E0E6ED;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nanum Gothic', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Layout Grid */
+        .dashboard-wrapper {
+            display: grid;
+            grid-template-columns: 260px 1fr 320px;
+            gap: 24px;
+            padding: 24px;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-wrapper {
+                grid-template-columns: 220px 1fr 280px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-wrapper {
+                grid-template-columns: 250px 1fr;
+                height: auto;
+                overflow: auto;
+            }
+            .right-sidebar {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Base */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #BDC3C7;
+            border-radius: 4px;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+        }
+
+        .logo-container img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border: none;
+        }
+
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .profile-info h4 {
+            font-size: 1.05rem;
+            margin-bottom: 2px;
+        }
+
+        .profile-info p {
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+
+        .btn-logout {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: var(--white);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: var(--danger);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .nav-link:hover i, .nav-link.active i {
+            color: var(--white);
+        }
+
+        .quick-links {
+            margin-top: auto;
+        }
+
+        .quick-link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+
+        .quick-link-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* Center Main Area */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .kpi-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-green {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--success);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+
+        .badge-yellow {
+            background: rgba(241, 196, 15, 0.15);
+            color: #D4AC0D;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+
+        .urgent-notice {
+            background: rgba(231, 76, 60, 0.05);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            position: relative;
+        }
+
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--danger);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        .urgent-text {
+            font-size: 0.9rem;
+            color: var(--danger);
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .dashboard-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+        }
+
+        @media (max-width: 1400px) {
+            .dashboard-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 10px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--secondary);
+            z-index: 2;
+        }
+
+        .timeline-dot.completed { border-color: var(--success); }
+        .timeline-dot.progress { border-color: var(--warning); background: var(--warning); }
+
+        .timeline-content {
+            background: var(--bg-color);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-content h5 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .tag.received { background: #EBF5FB; color: #2980B9; }
+        .tag.assigned { background: #FEF9E7; color: #D4AC0D; }
+        .tag.progress { background: #E8F8F5; color: #117A65; }
+
+        /* Inventory */
+        .inventory-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .inventory-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .inv-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 5px;
+            transition: width 0.5s ease, background-color 0.3s ease;
+        }
+
+        .progress-bar.low-stock {
+            background: var(--danger);
+        }
+
+        .blink-alert {
+            animation: blinker 1s linear infinite;
+            color: var(--danger);
+            font-size: 0.75rem;
+            font-weight: 800;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        /* Booking Grid */
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 60px 1fr 1fr;
+            gap: 2px;
+            background: var(--border-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bg-header {
+            background: var(--bg-color);
+            padding: 8px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .bg-time {
+            background: var(--white);
+            padding: 8px;
+            font-size: 0.75rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .bg-slot {
+            background: var(--white);
+            padding: 8px;
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .bg-slot:hover {
+            background: #EBF5FB;
+        }
+
+        .bg-booked {
+            background: rgba(46, 107, 158, 0.1);
+            color: var(--secondary);
+            font-weight: 700;
+            border-left: 3px solid var(--secondary);
+        }
+
+        /* Safety Checklist */
+        .checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .check-item:hover {
+            border-color: var(--secondary);
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--success);
+            cursor: pointer;
+        }
+
+        .check-item span {
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .check-item.checked span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        
+        .check-item.checked {
+            background: rgba(46, 204, 113, 0.05);
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+
+        /* Directory Search */
+        .search-box {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--secondary);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        
+        .directory-results {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .dir-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: var(--bg-color);
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        
+        .dir-name { font-weight: 800; color: var(--primary); }
+        .dir-ext { color: var(--secondary); font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+<div class="dashboard-wrapper">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+        <!-- Back Button -->
+        <button onclick="history.back()" style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.85rem; width: fit-content; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'; this.style.borderColor='#cbd5e1';" onmouseout="this.style.background='#fff'; this.style.borderColor='var(--border-color)';">
+            <i class="fa-solid fa-arrow-left"></i> 이전 화면으로
+        </button>
+
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="./batec_logo-removebg-preview.png" alt="Viatech Logo" onerror="this.src='https://via.placeholder.com/40'">
+            <div class="logo-text">(주)비에이텍</div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="card profile-card">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="profile-info">
+                <h4>홍길동 과장</h4>
+                <p>엔지니어링팀</p>
+            </div>
+            <button class="btn-logout" title="로그아웃">
+                <i class="fa-solid fa-power-off"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-link active"><i class="fa-solid fa-chart-pie"></i> 대시보드 (Dashboard)</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i> 자재 재고 관리</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-truck-fast"></i> 차량 배차 예약</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-helmet-safety"></i> 안전 메뉴얼</a></li>
+            <li><a href="#" class="nav-link"><i class="fa-solid fa-users-gear"></i> 현장 인력 편성</a></li>
+        </ul>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <button class="quick-link-btn" onclick="window.open('https://notebooklm.google.com/notebook/d00c4b87-93cd-4db6-b6ef-a87954ec0ac6', '_blank')">
+                <span><i class="fa-solid fa-robot" style="margin-right: 8px; color: var(--secondary);"></i> AI 기술문서 검색</span>
+                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+            </button>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin: 10px 0 5px 5px;">행정 서식 다운로드</div>
+            <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+               <button class="quick-link-btn" style="margin-bottom: 0; flex: 1; justify-content: center; padding: 8px;" onclick="downloadForm('leave')" title="휴가신청서"><i class="fa-solid fa-file-word"></i> 휴가</button>
+               <button class="quick-link-btn" style="margin-bottom: 0; flex: 1; justify-content: center; padding: 8px;" onclick="downloadForm('expense')" title="지출결의서"><i class="fa-solid fa-file-invoice"></i> 지출</button>
+               <button class="quick-link-btn" style="margin-bottom: 0; flex: 1; justify-content: center; padding: 8px;" onclick="downloadForm('car')" title="차량운행일지"><i class="fa-solid fa-car"></i> 차량</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- CENTER MAIN AREA -->
+    <main class="main-content">
+        <!-- Top KPIs -->
+        <div class="kpi-grid">
+            <div class="card kpi-card">
+                <div class="kpi-header">
+                    <span>오늘의 출동 건수</span>
+                    <i class="fa-solid fa-truck" style="color: var(--secondary);"></i>
+                </div>
+                <div class="kpi-value">
+                    12 <span class="badge-green"><i class="fa-solid fa-arrow-trend-up"></i> +2</span>
+                </div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-header">
+                    <span>대기 중인 고객 문의</span>
+                    <i class="fa-solid fa-headset" style="color: var(--secondary);"></i>
+                </div>
+                <div class="kpi-value">
+                    5 <span class="badge-yellow">처리요망</span>
+                </div>
+            </div>
+
+            <div class="card kpi-card urgent-notice">
+                <div class="kpi-header">
+                    <span>긴급 공지 (Urgent Notice)</span>
+                    <div class="pulse-dot"></div>
+                </div>
+                <div class="urgent-text">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 춘천 제2공장 정전 복구 작업중 (현장 주의)
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">
+                    1시간 전 업데이트 됨
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Content -->
+        <div class="dashboard-body">
+            
+            <!-- Timeline -->
+            <div class="card" style="margin-bottom: 0;">
+                <div class="card-title">
+                    <i class="fa-solid fa-clock-rotate-left"></i> 실시간 출동 & A/S 현황
+                </div>
+                <div class="timeline">
+                    <!-- Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot completed"></div>
+                        <div class="timeline-content">
+                            <h5>서울 강남빌딩 부스터펌프 수리</h5>
+                            <p>담당자: 김철수 대리</p>
+                            <span class="tag progress">작업 완료 (Completed)</span>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot progress"></div>
+                        <div class="timeline-content">
+                            <h5>판교 데이터센터 수중펌프 교체</h5>
+                            <p>담당자: 홍길동 과장, 이민호 주임</p>
+                            <span class="tag assigned">이동 중 (Assigned)</span>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h5>하남 정수장 정량펌프 점검</h5>
+                            <p>배정 대기 중</p>
+                            <span class="tag received">접수 완료 (Received)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Widget -->
+            <div class="card" style="margin-bottom: 0;">
+                <div class="card-title">
+                    <i class="fa-solid fa-cubes"></i> 실시간 자재 및 부품 재고
+                </div>
+                <div class="inventory-list" id="inventoryList">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Customer Inquiries -->
+            <div class="card" style="grid-column: 1 / -1; margin-bottom: 0;">
+                <div class="card-title">
+                    <i class="fa-solid fa-message"></i> 고객 문의사항 종합 현황
+                </div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: var(--bg-color); text-align: left;">
+                                <th style="padding: 12px; border-bottom: 2px solid var(--border-color);">접수일시</th>
+                                <th style="padding: 12px; border-bottom: 2px solid var(--border-color);">문의유형</th>
+                                <th style="padding: 12px; border-bottom: 2px solid var(--border-color);">고객/회사명</th>
+                                <th style="padding: 12px; border-bottom: 2px solid var(--border-color);">연락처</th>
+                                <th style="padding: 12px; border-bottom: 2px solid var(--border-color);">문의내용</th>
+                                <th style="padding: 12px; border-bottom: 2px solid var(--border-color);">상태</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inquiryTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="right-sidebar">
+        
+        <!-- Booking Grid -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fa-solid fa-calendar-check"></i> 사내 차량 배차표
+            </div>
+            <div class="booking-grid">
+                <div class="bg-header">시간</div>
+                <div class="bg-header">1호차 (스타렉스)</div>
+                <div class="bg-header">2호차 (트럭)</div>
+                
+                <div class="bg-time">09:00</div>
+                <div class="bg-slot bg-booked">김철수 (강남)</div>
+                <div class="bg-slot">예약 가능</div>
+
+                <div class="bg-time">11:00</div>
+                <div class="bg-slot bg-booked">김철수 (강남)</div>
+                <div class="bg-slot bg-booked">박지성 (물류)</div>
+
+                <div class="bg-time">14:00</div>
+                <div class="bg-slot">예약 가능</div>
+                <div class="bg-slot bg-booked">박지성 (물류)</div>
+                
+                <div class="bg-time">16:00</div>
+                <div class="bg-slot bg-booked">홍길동 (판교)</div>
+                <div class="bg-slot">예약 가능</div>
+            </div>
+        </div>
+
+        <!-- Safety Checklist -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fa-solid fa-clipboard-check"></i> 금일 안전 장비 체크리스트
+            </div>
+            <ul class="checklist">
+                <label class="check-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <i class="fa-solid fa-hard-hat" style="color: var(--secondary); font-size: 1.2rem; width: 24px;"></i>
+                    <span>안전모 착용 상태 확인</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <i class="fa-solid fa-shoe-prints" style="color: #795548; font-size: 1.2rem; width: 24px;"></i>
+                    <span>절연 안전화 착용</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <i class="fa-solid fa-mitten" style="color: #E67E22; font-size: 1.2rem; width: 24px;"></i>
+                    <span>특수 작업용 장갑 지참</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" onchange="toggleCheck(this)">
+                    <i class="fa-solid fa-bolt" style="color: var(--warning); font-size: 1.2rem; width: 24px;"></i>
+                    <span>검전기 및 누전 차단 테스트</span>
+                </label>
+            </ul>
+        </div>
+
+        <!-- Directory Search -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fa-solid fa-address-book"></i> 연락처 검색
+            </div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="dirSearch" placeholder="이름 또는 부서 입력..." onkeyup="filterDirectory()">
+            </div>
+            <div class="directory-results" id="dirResults">
+                <div class="dir-item">
+                    <span class="dir-name">김사장 (대표)</span>
+                    <span class="dir-ext">Ext. 100</span>
+                </div>
+                <div class="dir-item">
+                    <span class="dir-name">조세연 (기술총괄)</span>
+                    <span class="dir-ext">Ext. 201</span>
+                </div>
+                <div class="dir-item">
+                    <span class="dir-name">박지성 (물류팀)</span>
+                    <span class="dir-ext">Ext. 305</span>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+</div>
+
+<script>
+    // JS for Inventory Progress Bars
+    const inventoryData = [
+        { name: '고압 모터 (50HP)', current: 45, max: 50 },
+        { name: '인버터 제어반 부품', current: 15, max: 100 }, // Low stock < 20%
+        { name: '임펠러 (SUS304)', current: 78, max: 120 },
+        { name: '메카니컬 씰', current: 8, max: 50 }, // Low stock < 20%
+        { name: '스테인리스 파이프 (DN100)', current: 200, max: 300 }
+    ];
+
+    function renderInventory() {
+        const container = document.getElementById('inventoryList');
+        let html = '';
+
+        inventoryData.forEach(item => {
+            const percentage = (item.current / item.max) * 100;
+            const isLow = percentage < 20;
+            const barClass = isLow ? 'progress-bar low-stock' : 'progress-bar';
+            const alertHtml = isLow ? '<span class="blink-alert">Low Stock</span>' : '';
+
+            html += `
+                <div class="inventory-item">
+                    <div class="inv-header">
+                        <span>${item.name} ${alertHtml}</span>
+                        <span style="color: ${isLow ? 'var(--danger)' : 'var(--text-muted)'}">${item.current} / ${item.max}</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="${barClass}" style="width: ${percentage}%"></div>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // JS for Safety Checklist Strikethrough
+    function toggleCheck(checkbox) {
+        const label = checkbox.closest('.check-item');
+        if(checkbox.checked) {
+            label.classList.add('checked');
+        } else {
+            label.classList.remove('checked');
+        }
+    }
+
+    // JS for Live Directory Search
+    function filterDirectory() {
+        const input = document.getElementById('dirSearch').value.toLowerCase();
+        const items = document.getElementById('dirResults').getElementsByClassName('dir-item');
+
+        for (let i = 0; i < items.length; i++) {
+            const name = items[i].getElementsByClassName('dir-name')[0].innerText.toLowerCase();
+            if (name.includes(input)) {
+                items[i].style.display = "flex";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        renderInventory();
+        loadInquiries();
+    });
+
+    // Inquiry Loader
+    function loadInquiries() {
+        const tbody = document.getElementById('inquiryTableBody');
+        let inquiries = [];
+        const storedData = localStorage.getItem('customerInquiries');
+        if (storedData) inquiries = JSON.parse(storedData);
+
+        tbody.innerHTML = '';
+        if (inquiries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px; color: var(--text-muted);">접수된 문의사항이 없습니다.</td></tr>';
+            return;
+        }
+
+        inquiries.forEach(inq => {
+            const tr = document.createElement('tr');
+            let statusBadge = `<span style="background: rgba(241, 196, 15, 0.15); color: #D4AC0D; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700;">${inq.status}</span>`;
+            if (inq.status !== '접수대기') {
+                statusBadge = `<span style="background: rgba(46, 204, 113, 0.15); color: var(--success); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700;">${inq.status}</span>`;
+            }
+
+            tr.innerHTML = `
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${inq.date}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);"><strong>${inq.type}</strong></td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${inq.name}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${inq.phone}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color); max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${inq.message}">${inq.message}</td>
+                <td style="padding: 12px; border-bottom: 1px solid var(--border-color);">${statusBadge}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Form Downloader
+    function downloadForm(type) {
+        let content = '';
+        let filename = '';
+        if (type === 'leave') {
+            content = "[ (주)비에이텍 ] 휴가신청서 양식\n사원명:\n기간:\n사유:\n\n위와 같이 휴가를 신청합니다.\n\n신청일: 202  년   월   일\n신청인:          (서명)";
+            filename = '휴가신청서.doc';
+        } else if (type === 'expense') {
+            content = "[ (주)비에이텍 ] 지출결의서 서식\n사원명:\n결의일자: 202  년   월   일\n\n[지출 내역]\n항목:\n금액:\n적요:\n\n위와 같이 지출을 결의합니다.\n\n결재자:          (서명)";
+            filename = '지출결의서 서식.docx';
+        } else if (type === 'car') {
+            content = "[ (주)비에이텍 ] 차량 운행일지\n운행일자: 202  년   월   일\n운행자:\n\n[운행 내역]\n출발지:\n도착지:\n운행목적:\n주행거리(km):\n\n확인자:          (서명)";
+            filename = '차량 운행일지.docx';
+        }
+        const blob = new Blob([content], { type: 'application/msword;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+        alert(filename + " 다운로드가 완료되었습니다.");
+    }
+</script>
+
+</body>
+</html>

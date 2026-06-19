@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비에이텍 임직원 대시보드</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background: #f4f7f6; font-family: 'Pretendard Variable', 'Inter', sans-serif; margin: 0; }
+        .dashboard-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+        @media (max-width: 768px) { .grid-container { grid-template-columns: 1fr; } }
+        
+        .card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; }
+        .card-title { font-size: 1.2rem; font-weight: 700; color: #1e293b; margin: 0; }
+        
+        /* Lists & Tables */
+        .doc-list { list-style: none; padding: 0; margin: 0; }
+        .doc-list li { margin-bottom: 12px; }
+        .doc-list a { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px; text-decoration: none; color: #334155; transition: background 0.2s; }
+        .doc-list a:hover { background: #e2e8f0; }
+        
+        .notice-list { list-style: none; padding: 0; margin: 0; }
+        .notice-list li { padding: 12px 0; border-bottom: 1px dashed #e2e8f0; display: flex; justify-content: space-between; }
+        .notice-list li:last-child { border-bottom: none; }
+        
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        .data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .data-table th { background: #f8fafc; font-weight: 600; color: #64748b; }
+        
+        .btn-notebook { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #3b82f6; color: #fff; padding: 16px; border-radius: 8px; text-decoration: none; font-weight: 700; width: 100%; transition: background 0.2s; box-sizing: border-box; }
+        .btn-notebook:hover { background: #2563eb; }
+        
+        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+        .status-waiting { background: #fef3c7; color: #d97706; }
+        
+        /* Download Button & Toast Styles */
+        .btn-download { display: inline-flex; align-items: center; gap: 6px; background: #10b981; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.1s; }
+        .btn-download:hover { background: #059669; }
+        .btn-download:active { transform: scale(0.98); }
+        .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #f8fafc; border-radius: 8px; margin-bottom: 12px; border: 1px solid #e2e8f0; transition: background 0.2s; }
+        .doc-item:hover { background: #f1f5f9; }
+        
+        #toast-container { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: rgba(17, 24, 39, 0.9); color: white; padding: 14px 24px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; z-index: 9999; display: flex; align-items: center; gap: 8px; }
+        #toast-container.show { opacity: 1; visibility: visible; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div style="display: flex; align-items: center; gap: 12px; color: var(--primary, #002D5A);">
+            <i data-lucide="shield-check" style="width: 32px; height: 32px; color: #F97316;"></i>
+            <h1 style="margin: 0; font-size: 1.8rem; font-weight: 800;">임직원 대시보드</h1>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <a href="dashboard.html" style="color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; background: #1A3A5C; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: 700; transition: all 0.2s;" onmouseover="this.style.backgroundColor='#2E6B9E';" onmouseout="this.style.backgroundColor='#1A3A5C';" title="통합 관제 대시보드 열기">
+                <i data-lucide="layout-dashboard" style="width: 20px; height: 20px;"></i>
+                <span>통합 관제 대시보드</span>
+            </a>
+            <a href="index.html" style="color: #111; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; background: #fff; border: 1px solid #d1d5db; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-weight: 700; transition: all 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6';" onmouseout="this.style.backgroundColor='#fff';" title="메인 페이지로 돌아가기">
+                <i data-lucide="home" style="width: 20px; height: 20px;"></i>
+                <span>메인으로</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Row 1: 기술자료 & 행정서식 -->
+    <div class="grid-container">
+        <!-- 1. 기술 자료 및 제품 매뉴얼 -->
+        <div class="card">
+            <div class="card-header">
+                <i data-lucide="book-open" style="color: #3b82f6;"></i>
+                <h2 class="card-title">기술 자료 및 AI 매뉴얼 검색</h2>
+            </div>
+            <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">사내 기술 문서 및 펌프 매뉴얼을 AI(NotebookLM)를 통해 빠르게 검색하고 확인하세요.</p>
+            <a href="https://notebooklm.google.com/notebook/d00c4b87-93cd-4db6-b6ef-a87954ec0ac6" target="_blank" class="btn-notebook">
+                <i data-lucide="external-link"></i>
+                기술 자료 NotebookLM 바로가기
+            </a>
+        </div>
+        
+        <!-- 2. 행정 서식 및 문서 양식 -->
+        <div class="card">
+            <div class="card-header">
+                <i data-lucide="file-text" style="color: #10b981;"></i>
+                <h2 class="card-title">행정 서식 및 문서 양식</h2>
+            </div>
+            <ul class="doc-list" style="list-style: none; padding: 0; margin: 0;">
+                <li class="doc-item">
+                    <div style="display: flex; align-items: center; gap: 12px; color: #334155;">
+                        <i data-lucide="file-text" style="color: #10b981;"></i>
+                        <span style="font-weight: 500;">휴가 신청서</span>
+                    </div>
+                    <button class="btn-download" onclick="downloadForm('leave')">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> 다운로드
+                    </button>
+                </li>
+                <li class="doc-item">
+                    <div style="display: flex; align-items: center; gap: 12px; color: #334155;">
+                        <i data-lucide="file-text" style="color: #10b981;"></i>
+                        <span style="font-weight: 500;">지출 결의서</span>
+                    </div>
+                    <button class="btn-download" onclick="downloadForm('expense')">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> 다운로드
+                    </button>
+                </li>
+                <li class="doc-item">
+                    <div style="display: flex; align-items: center; gap: 12px; color: #334155;">
+                        <i data-lucide="file-text" style="color: #10b981;"></i>
+                        <span style="font-weight: 500;">차량 운행일지</span>
+                    </div>
+                    <button class="btn-download" onclick="downloadForm('car')">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> 다운로드
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Row 2: 주요 공지사항 & 사내 주소록 -->
+    <div class="grid-container">
+        <!-- 3. 주요 공지사항 -->
+        <div class="card">
+            <div class="card-header">
+                <i data-lucide="bell" style="color: #f59e0b;"></i>
+                <h2 class="card-title">주요 공지사항</h2>
+            </div>
+            <ul class="notice-list">
+                <li>
+                    <span style="font-weight: 500; color: #1e293b;">[안내] 2026년 하계 휴가 일정 제출 요망</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">2026.06.01</span>
+                </li>
+                <li>
+                    <span style="font-weight: 500; color: #1e293b;">[업무] 신규 부스터 펌프 설치 매뉴얼 업데이트</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">2026.05.28</span>
+                </li>
+                <li>
+                    <span style="font-weight: 500; color: #1e293b;">[인사] 영업본부 신규 입사자 환영회 안내</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">2026.05.15</span>
+                </li>
+                <li>
+                    <span style="font-weight: 500; color: #1e293b;">[안전] 현장 작업 시 안전모 및 보호구 착용 철저</span>
+                    <span style="color: #94a3b8; font-size: 0.85rem;">2026.05.02</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 4. 사내 주소록 -->
+        <div class="card">
+            <div class="card-header">
+                <i data-lucide="users" style="color: #8b5cf6;"></i>
+                <h2 class="card-title">사내 주소록</h2>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>부서</th>
+                            <th>직급</th>
+                            <th>이름</th>
+                            <th>내선번호 / 연락처</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>대표이사</td>
+                            <td>대표</td>
+                            <td>조세연</td>
+                            <td>033-264-9243</td>
+                        </tr>
+                        <tr>
+                            <td>기술본부</td>
+                            <td>본부장</td>
+                            <td>김기술</td>
+                            <td>010-1234-5678</td>
+                        </tr>
+                        <tr>
+                            <td>영업본부</td>
+                            <td>팀장</td>
+                            <td>이영업</td>
+                            <td>010-8765-4321</td>
+                        </tr>
+                        <tr>
+                            <td>품질관리팀</td>
+                            <td>과장</td>
+                            <td>박품질</td>
+                            <td>010-1111-2222</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 문의사항 종합 -->
+    <div class="card" style="margin-bottom: 40px;">
+        <div class="card-header">
+            <i data-lucide="message-square" style="color: #ef4444;"></i>
+            <h2 class="card-title">고객 문의사항 종합 현황</h2>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="data-table" id="inquiryTable">
+                <thead>
+                    <tr>
+                        <th>접수일시</th>
+                        <th>문의유형</th>
+                        <th>고객명/회사명</th>
+                        <th>연락처</th>
+                        <th>문의내용</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody id="inquiryTableBody">
+                    <!-- Data will be populated via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    lucide.createIcons();
+
+    // 문의사항 데이터 로드
+    function loadInquiries() {
+        const tbody = document.getElementById('inquiryTableBody');
+        
+        let inquiries = [];
+        const storedData = localStorage.getItem('customerInquiries');
+        if (storedData) {
+            inquiries = JSON.parse(storedData);
+        }
+
+        // 기존 내용을 비우고 새로 렌더링
+        tbody.innerHTML = '';
+
+        // 데이터가 없을 경우 예외 처리
+        if (inquiries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: #64748b; font-weight: 500;">접수된 문의사항이 없습니다.</td></tr>';
+            return;
+        }
+
+        // 데이터 순회 및 행 생성 (index.html에서 unshift로 최신순 정렬됨)
+        inquiries.forEach(inq => {
+            const tr = document.createElement('tr');
+            
+            // 상태 뱃지 처리
+            let statusBadge = `<span class="status-badge status-waiting">${inq.status}</span>`;
+            if (inq.status !== '접수대기') {
+                statusBadge = `<span class="status-badge" style="background: #dcfce7; color: #166534;">${inq.status}</span>`;
+            }
+
+            tr.innerHTML = `
+                <td>${inq.date}</td>
+                <td><strong>${inq.type}</strong></td>
+                <td>${inq.name}</td>
+                <td>${inq.phone}</td>
+                <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${inq.message}">${inq.message}</td>
+                <td>${statusBadge}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // 초기 로드
+    window.addEventListener('DOMContentLoaded', loadInquiries);
+
+    // 파일 다운로드 로직 (Blob 방식)
+    function downloadForm(type) {
+        let content = '';
+        let filename = '';
+
+        if (type === 'leave') {
+            content = "[ (주)비에이텍 ] 휴가신청서 양식\n사원명:\n기간:\n사유:\n\n위와 같이 휴가를 신청합니다.\n\n신청일: 202  년   월   일\n신청인:          (서명)";
+            filename = '휴가신청서.doc';
+        } else if (type === 'expense') {
+            content = "[ (주)비에이텍 ] 지출결의서 서식\n사원명:\n결의일자: 202  년   월   일\n\n[지출 내역]\n항목:\n금액:\n적요:\n\n위와 같이 지출을 결의합니다.\n\n결재자:          (서명)";
+            filename = '지출결의서 서식.docx';
+        } else if (type === 'car') {
+            content = "[ (주)비에이텍 ] 차량 운행일지\n운행일자: 202  년   월   일\n운행자:\n\n[운행 내역]\n출발지:\n도착지:\n운행목적:\n주행거리(km):\n\n확인자:          (서명)";
+            filename = '차량 운행일지.docx';
+        }
+
+        // 1. Blob 객체 생성 (msword 타입)
+        const blob = new Blob([content], { type: 'application/msword;charset=utf-8' });
+        
+        // 2. 임시 다운로드 링크(URL) 생성
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        
+        // 3. 브라우저에서 강제 클릭하여 다운로드 실행
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // 4. 메모리 누수 방지용 URL 해제
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+
+        // 5. 다운로드 완료 토스트 알림 호출
+        showToast("양식 파일이 성공적으로 다운로드되었습니다.");
+    }
+
+    // 토스트 알림 표시 로직
+    function showToast(message) {
+        let toast = document.getElementById('toast-container');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toast-container';
+            toast.innerHTML = `<i data-lucide="check-circle" style="color: #34d399; width: 20px; height: 20px;"></i> <span></span>`;
+            document.body.appendChild(toast);
+        }
+        
+        toast.querySelector('span').textContent = message;
+        lucide.createIcons({ root: toast }); // 새 아이콘 렌더링
+        
+        // reflow를 강제하여 transition이 동작하게 함
+        void toast.offsetWidth;
+        
+        toast.classList.add('show');
+        
+        // 3초 후 토스트 숨김
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+</script>
+
+<script src="custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제품 및 설비장비 | (주)비에이텍</title>
+    <meta name="description" content="(주)비에이텍의 주요 펌프 제조 설비, 테스트 장비 및 기술 자료실 목록을 제공합니다.">
+    
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons: FontAwesome 6 & Lucide -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Smooth Scroll: Lenis CDN -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <style>
+        /* Product Cards Grid Customization */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(0, 141, 218, 0.2);
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .product-card:hover .product-image-container img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .product-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .product-actions .btn {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            border-radius: var(--border-radius-sm);
+        }
+
+        /* Document Library Style */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 50px;
+        }
+
+        .doc-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 32px 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 141, 218, 0.3);
+            box-shadow: var(--shadow-md);
+        }
+
+        .doc-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(0, 141, 218, 0.06);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .doc-card:hover .doc-icon-wrapper {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .doc-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.4;
+        }
+
+        .doc-actions-container {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .doc-btn-view, .doc-btn-dl {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: var(--border-radius-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: var(--transition-fast);
+        }
+
+        .doc-btn-view {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .doc-btn-view:hover {
+            background: var(--accent);
+        }
+
+        .doc-btn-dl {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+        }
+
+        .doc-btn-dl:hover {
+            background: var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & GNB (Global Navigation Bar) -->
+    <header id="header">
+        <div class="container navbar">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="droplets"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">(주)비에이텍</span>
+                    <span class="logo-sub">B-ATEC Engineering</span>
+                </div>
+            </a>
+
+            <!-- GNB Navigation Menu (1Depth & 2Depth) -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">회사소개</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="about.html" class="dropdown-link">회사소개</a></li>
+                        <li class="dropdown-item"><a href="about.html#history" class="dropdown-link">연혁</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="products.html" class="nav-link" style="color: var(--accent);">제품 및 기술</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="products.html" class="dropdown-link">설비장비</a></li>
+                        <li class="dropdown-item"><a href="products.html#tech-data" class="dropdown-link">기술자료</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="performance.html" class="nav-link">실적 및 인증</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="performance.html" class="dropdown-link">사업실적</a></li>
+                        <li class="dropdown-item"><a href="performance.html#certs" class="dropdown-link">인증/특허</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="faq.html" class="nav-link">자주묻는질문</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="faq.html" class="dropdown-link">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Staff Access Button removed as per request -->
+
+            <!-- Hamburger Button for Mobile -->
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Dropdown Panel -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul class="mobile-menu-list">
+            <li class="mobile-nav-item">
+                <a href="about.html" class="mobile-nav-link">회사소개</a>
+                <ul class="mobile-submenu">
+                    <li><a href="about.html" class="mobile-submenu-link">회사소개</a></li>
+                    <li><a href="about.html#history" class="mobile-submenu-link">연혁</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="products.html" class="mobile-nav-link">제품 및 기술</a>
+                <ul class="mobile-submenu">
+                    <li><a href="products.html" class="mobile-submenu-link">설비장비</a></li>
+                    <li><a href="products.html#tech-data" class="mobile-submenu-link">기술자료</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="performance.html" class="mobile-nav-link">실적 및 인증</a>
+                <ul class="mobile-submenu">
+                    <li><a href="performance.html" class="mobile-submenu-link">사업실적</a></li>
+                    <li><a href="performance.html#certs" class="mobile-submenu-link">인증/특허</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="faq.html" class="mobile-nav-link">자주묻는질문</a>
+            </li>
+        </ul>
+        <!-- Mobile Utility removed as per request -->
+    </nav>
+
+    <!-- Subpage Hero -->
+    <section class="sub-hero">
+        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=2070" alt="제품 및 기술 히어로 배경" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; opacity:0.35;">
+        <div class="container" style="position: relative; z-index: 3;">
+            <div class="sub-hero-content">
+                <h1 class="reveal">제품 및 기술</h1>
+                <p class="reveal font-outfit">Products & Engineering Technology</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products & Facility Equipment Cards Section -->
+    <section class="section-padding" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Manufacturing Excellence</span>
+                <h2 class="section-title">스마트 설비 및 기기 라인업</h2>
+                <p class="section-desc">무결점 유체 가공과 정밀 제어 분석을 위한 비에이텍의 핵심 하이테크 설비를 공개합니다.</p>
+            </div>
+
+            <div class="product-grid">
+                <!-- Card 1 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <span class="product-badge">Manufacturing</span>
+                        <img src="./assembly_line.png" alt="정밀 조립 자동화라인">
+                    </div>
+                    <div class="product-info">
+                        <h3>정밀 조립 자동화 라인</h3>
+                        <p>고압 다단 펌프 및 인버터 모터 조립 공정을 원스톱으로 관리합니다. 스마트 토크 측정 및 마이크로 축 정렬 가공 모니터링 시스템을 탑재하여 조립 누적 에러율을 0%에 수렴시킵니다.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <span class="product-badge">Quality Testing</span>
+                        <img src="./test_bench.png" alt="펌프 성능 테스트 벤치">
+                    </div>
+                    <div class="product-info">
+                        <h3>펌프 성능 테스트 벤치</h3>
+                        <p>유량량정 곡선(Q-H Curve) 검증 및 고온/고압 연속 회전 부하 실시간 모니터링을 진행하는 설비입니다. 주파수 전력 수치를 분석하여 펌프 최적 효율점의 이상유무를 기계적으로 진단합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="product-card reveal">
+                    <div class="product-image-container">
+                        <span class="product-badge">Special Surface</span>
+                        <img src="./special_coating.png" alt="내부식 특수 코팅 설비">
+                    </div>
+                    <div class="product-info">
+                        <h3>내부식 특수 코팅 공정</h3>
+                        <p>화학 공장, 해수 처리 현장용 펌프 수명을 연장하기 위한 비에이텍만의 내부식 특수 코팅 설비입니다. 가혹 환경에서 캐비테이션 부식 손상을 차단하고 안정성을 유지하는 핵심 기계 표면 공정입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- High-Fidelity Product Lineup Gallery -->
+    <section class="section-padding" style="background: var(--white); border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Product Lineup</span>
+                <h2 class="section-title">주요 생산 펌프 라인업</h2>
+                <p class="section-desc">최적 효율과 내구성을 지향하는 비에이텍의 특수 산업용 펌프 포트폴리오를 확인하세요.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Card 1 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/01_다단벌류트펌프.png" alt="Multistage Volute Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>다단벌류트펌프</h4>
+                        <p>고압 이송에 적합하며, 여러 단의 임펠러를 장착하여 안정적인 압력과 유동 제어를 지원합니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/02_단단벌류트펌프.png" alt="Single-stage Volute Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>단단벌류트펌프</h4>
+                        <p>구조가 단순하고 유지관리가 매우 편리하여, 일반 급수 및 순환 설비에 폭넓게 적용됩니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/03_양흡입벌류트펌프.png" alt="Double Suction Volute Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>양흡입벌류트펌프</h4>
+                        <p>양쪽에서 유체를 흡입하여 대용량 운전에 최적화되어 있으며, 축 하중이 대칭을 이루어 매우 안정적입니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/04_편흡입벌류트펌프.png" alt="End Suction Volute Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>편흡입벌류트펌프</h4>
+                        <p>한쪽 흡입 구조로 배관 레이아웃 및 설치가 간편하며, 다양한 산업 현장에 유연하게 호환됩니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/05_정량펌프.png" alt="Metering / Dosing Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>정량펌프</h4>
+                        <p>매우 정확한 미세 유량 제어를 지원하여, 정밀한 약품 주입 공정 및 화학액 이송 공정에 사용됩니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/06_수중펌프.png" alt="Submersible Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>수중펌프</h4>
+                        <p>물속에 잠겨 직접 작동되는 펌프로, 지하수 배수, 집수정 정화 및 침수 비상 대응에 매우 탁월합니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/07_오수펌프.png" alt="Sewage Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>오수펌프</h4>
+                        <p>고형물이나 오물, 미세 이물질이 포함된 불균일한 폐수를 마모와 막힘 없이 안정적으로 이송합니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 8 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/08_슬러지펌프.png" alt="Sludge Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>슬러지펌프</h4>
+                        <p>고점도의 슬러지 및 고형 폐기물이 대량 포함된 거친 슬러지를 원활히 이송하도록 설계된 내구형 제품입니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 9 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/09_심정용펌프.png" alt="Deep Well Submersible Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>심정용펌프</h4>
+                        <p>깊은 지하수 취수에 특화되어 있으며, 직경이 좁은 관정 내부에서도 흔들림 없는 고양정 양수를 지원합니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 10 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/10_전진공동펌프.png" alt="Progressive Cavity Pump" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>전진공동펌프</h4>
+                        <p>점성이 극도로 높은 유체라도 맥동 없이 부드럽게 이송하며, 정밀한 양을 지속해서 보내는 데 최적입니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+                <!-- Card 11 -->
+                <div class="gallery-card reveal">
+                    <div style="height: 240px; overflow: hidden; background: #fff; padding: 20px; box-sizing: border-box;">
+                        <img src="product_pngs/11_부스터펌프.png" alt="Booster Pump System" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>부스터펌프</h4>
+                        <p>복수의 펌프와 제어반을 결합하여, 고층 빌딩과 대형 상업 시설에 항상 정밀하고 일정한 수압을 유지합니다.</p>
+                        <a href="index.html#quickContactForm" class="btn btn-primary">견적 문의하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Data Section (PDF Modal Integration / Archives) -->
+    <section id="tech-data" class="section-padding" style="background: var(--white);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Technical Data</span>
+                <h2 class="section-title">온라인 기술 자료실</h2>
+                <p class="section-desc">비에이텍의 공학 기술 매뉴얼, 설계용 카탈로그 및 대외 증명 서류를 디지털로 열람할 수 있습니다.</p>
+            </div>
+
+            <div class="doc-grid">
+                <!-- Doc 1 -->
+                <div class="doc-card reveal" style="cursor: pointer;" onclick="openViewer('mono_pump.pdf', '일축나사식 모노펌프 유지관리지침서')">
+                    <div class="doc-icon-wrapper">
+                        <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <span class="doc-title">일축나사식 모노펌프<br>유지관리지침서</span>
+                    <div class="doc-actions-container">
+                        <span class="doc-btn-view" style="width: 100%;">
+                            <i data-lucide="eye" style="width: 16px; height: 16px;"></i> 브라우저 뷰어 열기
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Doc 2 -->
+                <div class="doc-card reveal" style="cursor: pointer;" onclick="openViewer('booster_pump.pdf', '부스터펌프 유지관리지침서')">
+                    <div class="doc-icon-wrapper">
+                        <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <span class="doc-title">부스터펌프<br>유지관리지침서</span>
+                    <div class="doc-actions-container">
+                        <span class="doc-btn-view" style="width: 100%;">
+                            <i data-lucide="eye" style="width: 16px; height: 16px;"></i> 브라우저 뷰어 열기
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Doc 3 -->
+                <div class="doc-card reveal" style="cursor: pointer;" onclick="openViewer('metering_pump.pdf', '정량펌프 유지관리지침서')">
+                    <div class="doc-icon-wrapper">
+                        <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <span class="doc-title">정량펌프<br>유지관리지침서</span>
+                    <div class="doc-actions-container">
+                        <span class="doc-btn-view" style="width: 100%;">
+                            <i data-lucide="eye" style="width: 16px; height: 16px;"></i> 브라우저 뷰어 열기
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Doc 4 -->
+                <div class="doc-card reveal" style="cursor: pointer;" onclick="openViewer('submersible_pump.pdf', '수중펌프 유지관리지침서')">
+                    <div class="doc-icon-wrapper">
+                        <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <span class="doc-title">수중펌프<br>유지관리지침서</span>
+                    <div class="doc-actions-container">
+                        <span class="doc-btn-view" style="width: 100%;">
+                            <i data-lucide="eye" style="width: 16px; height: 16px;"></i> 브라우저 뷰어 열기
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Doc 5 -->
+                <div class="doc-card reveal" style="cursor: pointer;" onclick="openViewer('volute_pump.pdf', '편흡입볼류트펌프 유지관리지침서')">
+                    <div class="doc-icon-wrapper">
+                        <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <span class="doc-title">편흡입볼류트펌프<br>유지관리지침서</span>
+                    <div class="doc-actions-container">
+                        <span class="doc-btn-view" style="width: 100%;">
+                            <i data-lucide="eye" style="width: 16px; height: 16px;"></i> 브라우저 뷰어 열기
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Doc 6 -->
+                <div class="doc-card reveal" style="cursor: pointer;" onclick="openViewer('sludge_pump.pdf', '슬러지펌프 유지관리지침서')">
+                    <div class="doc-icon-wrapper">
+                        <i data-lucide="settings" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <span class="doc-title">슬러지펌프<br>유지관리지침서</span>
+                    <div class="doc-actions-container">
+                        <span class="doc-btn-view" style="width: 100%;">
+                            <i data-lucide="eye" style="width: 16px; height: 16px;"></i> 브라우저 뷰어 열기
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div style="background: var(--white); width: 95%; max-width: 1200px; height: 90vh; border-radius: var(--border-radius-md); display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--shadow-lg); animation: fadeIn 0.3s ease;">
+            <div style="padding: 16px 24px; background: var(--bg-light); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="modalTitle" style="margin: 0; font-size: 1.2rem; color: var(--primary);">문서 뷰어</h3>
+                <button onclick="closeViewer()" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); line-height: 1;">&times;</button>
+            </div>
+            <div style="flex: 1; padding: 0; background: #e5e7eb;">
+                <object id="pdfObject" data="" type="application/pdf" width="100%" height="100%" style="display: block; border: none;">
+                    <div style="padding: 40px; text-align: center;">
+                        <p>PDF 뷰어를 지원하지 않는 브라우저입니다.</p>
+                    </div>
+                </object>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <script>
+        function openViewer(pdfUrl, title) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('pdfObject').data = pdfUrl;
+            document.getElementById('pdfModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeViewer() {
+            document.getElementById('pdfModal').style.display = 'none';
+            document.getElementById('pdfObject').data = '';
+            document.body.style.overflow = '';
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="floating-orbs">
+            <div class="floating-orb orb-blue"></div>
+            <div class="floating-orb orb-dark"></div>
+        </div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon" style="background: var(--accent);">
+                            <i data-lucide="droplets"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-title">(주)비에이텍</span>
+                            <span class="logo-sub" style="color: var(--white); opacity: 0.6;">B-ATEC Engineering</span>
+                        </div>
+                    </a>
+                    <p class="footer-desc">
+                        비에이텍은 정밀 공학 연구와 무결점 고객 지원을 바탕으로 공공 인프라 및 대형 플랜트 펌프 기술의 선두에 서 있습니다.
+                    </p>
+                </div>
+                <div class="footer-links-col">
+                    <h5 class="footer-links-title">주요 메뉴</h5>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">회사소개</a></li>
+                        <li><a href="products.html" class="footer-link">제품 및 기술</a></li>
+                        <li><a href="performance.html" class="footer-link">실적 및 인증</a></li>
+                        <li><a href="faq.html" class="footer-link">자주묻는질문</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h5 class="footer-links-title">기술 센터</h5>
+                    <ul class="footer-links">
+                        <li><a href="maintenance_guide.pdf" class="footer-link" target="_blank">유지관리 지침서 (PDF)</a></li>
+                        <li><a href="company_profile.pdf" class="footer-link" target="_blank">비에이텍 지명원 (PDF)</a></li>
+                        <li><a href="brochure.pdf" class="footer-link" target="_blank">카탈로그/브로슈어 (PDF)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-info">
+                    <span>(주)비에이텍 | 대표이사: 조세연 | 사업자등록번호: 221-81-79342</span>
+                    <span>본사 및 공장: 강원특별자치도 춘천시 퇴계공단2길 64</span>
+                    <span>T. 033-264-9243 | F. 033-264-9244</span>
+                </div>
+                <p class="copyright">&copy; 2026 B-ATEC Co., Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Layout Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Lenis Smooth Scroll Initialisation
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Header Transparency on Scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger Menu Logic (Mobile Nav)
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Intersection Observer for scroll entrance animations (Reveal)
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15
+        });
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
+    <script src="audio-control.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실적 및 인증 | (주)비에이텍</title>
+    <meta name="description" content="(주)비에이텍의 주요 사업 실적 및 대외 공인 인증서(ISO 9001, KC, Main-Biz) 현황을 소개합니다.">
+    
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons: FontAwesome 6 & Lucide -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Smooth Scroll: Lenis CDN -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <style>
+        /* Certification Cards Design */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 50px;
+        }
+
+        .cert-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: var(--transition-smooth);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(0, 141, 218, 0.25);
+        }
+
+        .cert-card:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .cert-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 141, 218, 0.05);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 2rem;
+            transition: var(--transition-fast);
+        }
+
+        .cert-card:hover .cert-badge {
+            background: var(--accent);
+            color: var(--white);
+            transform: rotateY(360deg);
+        }
+
+        .cert-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .cert-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .cert-actions {
+            display: flex;
+            width: 100%;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .cert-actions .btn {
+            flex: 1;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            border-radius: var(--border-radius-sm);
+        }
+
+        /* Achievements Grid & Timeline Card */
+        .perf-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 50px;
+        }
+
+        .perf-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .perf-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(0, 141, 218, 0.2);
+            box-shadow: var(--shadow-md);
+        }
+
+        .perf-year {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            width: 120px;
+            flex-shrink: 0;
+            text-align: right;
+            border-right: 2px solid var(--border-color);
+            padding-right: 32px;
+        }
+
+        .perf-info {
+            flex: 1;
+        }
+
+        .perf-info h4 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .perf-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .perf-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .perf-year {
+                width: auto;
+                text-align: left;
+                border-right: none;
+                border-bottom: 2px solid var(--border-color);
+                padding-right: 0;
+                padding-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & GNB (Global Navigation Bar) -->
+    <header id="header">
+        <div class="container navbar">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="droplets"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">(주)비에이텍</span>
+                    <span class="logo-sub">B-ATEC Engineering</span>
+                </div>
+            </a>
+
+            <!-- GNB Navigation Menu (1Depth & 2Depth) -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">회사소개</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="about.html" class="dropdown-link">회사소개</a></li>
+                        <li class="dropdown-item"><a href="about.html#history" class="dropdown-link">연혁</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="products.html" class="nav-link">제품 및 기술</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="products.html" class="dropdown-link">설비장비</a></li>
+                        <li class="dropdown-item"><a href="products.html#tech-data" class="dropdown-link">기술자료</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="performance.html" class="nav-link" style="color: var(--accent);">실적 및 인증</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="performance.html" class="dropdown-link">사업실적</a></li>
+                        <li class="dropdown-item"><a href="performance.html#certs" class="dropdown-link">인증/특허</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="faq.html" class="nav-link">자주묻는질문</a>
+                    <ul class="dropdown">
+                        <li class="dropdown-item"><a href="faq.html" class="dropdown-link">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Staff Access Button removed as per request -->
+
+            <!-- Hamburger Button for Mobile -->
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Dropdown Panel -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul class="mobile-menu-list">
+            <li class="mobile-nav-item">
+                <a href="about.html" class="mobile-nav-link">회사소개</a>
+                <ul class="mobile-submenu">
+                    <li><a href="about.html" class="mobile-submenu-link">회사소개</a></li>
+                    <li><a href="about.html#history" class="mobile-submenu-link">연혁</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="products.html" class="mobile-nav-link">제품 및 기술</a>
+                <ul class="mobile-submenu">
+                    <li><a href="products.html" class="mobile-submenu-link">설비장비</a></li>
+                    <li><a href="products.html#tech-data" class="mobile-submenu-link">기술자료</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="performance.html" class="mobile-nav-link">실적 및 인증</a>
+                <ul class="mobile-submenu">
+                    <li><a href="performance.html" class="mobile-submenu-link">사업실적</a></li>
+                    <li><a href="performance.html#certs" class="mobile-submenu-link">인증/특허</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="faq.html" class="mobile-nav-link">자주묻는질문</a>
+            </li>
+        </ul>
+        <!-- Mobile Utility removed as per request -->
+    </nav>
+
+    <!-- Subpage Hero -->
+    <section class="sub-hero">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2070" alt="실적 및 인증 히어로 배경" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; opacity:0.35;">
+        <div class="container" style="position: relative; z-index: 3;">
+            <div class="sub-hero-content">
+                <h1 class="reveal">실적 및 인증</h1>
+                <p class="reveal font-outfit">Track Record & Certifications</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Performance Section (Timeline Grid Style) -->
+    <section class="section-padding" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Track Record</span>
+                <h2 class="section-title">주요 사업 실적</h2>
+                <p class="section-desc">공공 정수 인프라부터 민간 화학 플랜트까지 무결점 시공과 공급으로 인정받아 왔습니다.</p>
+            </div>
+
+            <!-- Search & Filter -->
+            <div class="records-filter reveal" style="margin-bottom: 24px; display: flex; justify-content: flex-end;">
+                <div style="position: relative; width: 100%; max-width: 400px;">
+                    <i class="fas fa-search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                    <input type="text" id="recordSearch" placeholder="발주처 또는 건명 검색..." style="width: 100%; padding: 12px 16px 12px 48px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); font-size: 1rem; outline: none; transition: border-color 0.2s;">
+                </div>
+            </div>
+
+            <!-- Records Table -->
+            <div class="records-table-wrapper reveal">
+                <table class="records-table" id="recordsTable">
+                    <thead>
+                        <tr>
+                            <th width="8%">번호</th>
+                            <th width="20%">발주처</th>
+                            <th width="47%">건명</th>
+                            <th width="10%">납품일자</th>
+                            <th width="15%">비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>419</td><td>철원군농업기술센터</td><td>2019년 철원 대마지구(대마리990번지) 수리시설 정비사업 수중펌프</td><td>2019</td><td>관급 납품 완료</td></tr>
+                        <tr><td>418</td><td>철원군농업기술센터</td><td>2019년 만경보 수중펌프</td><td>2019.07</td><td>관급 납품 완료</td></tr>
+                        <tr><td>417</td><td>삼척시하수도사업소</td><td>읍상빗물펌프장 펌프 수리수선</td><td>2019.06</td><td>긴급 복구 및 정비</td></tr>
+                        <tr><td>416</td><td>양구군상하수도사업소</td><td>죽곡 공공하수처리시설 관급자재-펌프류</td><td>2019</td><td>관급 납품 완료</td></tr>
+                        <tr><td>415</td><td>양구군상하수도사업소</td><td>구암 공공하수처리시설 관급자재-펌프류</td><td>2019</td><td>관급 납품 완료</td></tr>
+                        <tr><td>414</td><td>양구군상하수도사업소</td><td>송현 공공하수처리시설 설치공사 펌프류</td><td>2019</td><td>관급 납품 완료</td></tr>
+                        <tr><td>413</td><td>양양군상하수도사업소</td><td>강현가압장 가압시설 증설공사 부스터펌프</td><td>2019.08</td><td>대용량 시스템 적용</td></tr>
+                        <tr><td>412</td><td>삼척시상수도사업소</td><td>미로상수도 확장공사 부스터펌프</td><td>2019</td><td>가압장 설치 완료</td></tr>
+                        <tr><td>411</td><td>홍천군</td><td>솔무치지구 밭기반 정비사업1차분 심정펌프</td><td>2019</td><td>농업용수 공급용</td></tr>
+                        <tr><td>410</td><td>춘천시상하수도사업본부</td><td>수중펌프</td><td>2019.06</td><td>관급 납품 완료</td></tr>
+                        <tr><td>409</td><td>강원도인재개발원</td><td>본관기계실 노후펌프 교체공사</td><td>2019.06</td><td>효율 개선 공사</td></tr>
+                        <tr><td>408</td><td>춘천시상하수도사업본부</td><td>근화동 유수지 지배수펌프 증설공사 수중펌프</td><td>2019.06</td><td>재해 예방 사업</td></tr>
+                        <tr><td>407</td><td>철원군상하수도사업소</td><td>김화하수처리구역(와수3처리분구) 하수관거정비사업 수중볼텍스펌프</td><td>2019.05</td><td>수처리 설비 시공</td></tr>
+                        <tr><td>406</td><td>춘천시상하수도사업본부</td><td>용산정수장 샘플링펌프</td><td>2019.06</td><td>수질 정밀 분석용</td></tr>
+                        <tr><td>405</td><td>춘천시상하수도사업본부</td><td>2019년 상수도시설 확충공사 (서면당림리 272번지일원외) 부스터펌프</td><td>2019.08</td><td>가압 라인 확충</td></tr>
+                        <tr><td>404</td><td>홍천군</td><td>농업용수(양덕원리 취수펌프) 배수관로 설치공사 진공펌프</td><td>2019.06</td><td>농업 기반 시설</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Filtering Script -->
+            <script>
+                document.getElementById('recordSearch').addEventListener('keyup', function() {
+                    let filter = this.value.toUpperCase();
+                    let rows = document.querySelector("#recordsTable tbody").rows;
+                    
+                    for (let i = 0; i < rows.length; i++) {
+                        let client = rows[i].cells[1].textContent.toUpperCase();
+                        let project = rows[i].cells[2].textContent.toUpperCase();
+                        if (client.indexOf(filter) > -1 || project.indexOf(filter) > -1) {
+                            rows[i].style.display = "";
+                        } else {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                });
+                
+                document.getElementById('recordSearch').addEventListener('focus', function() {
+                    this.style.borderColor = 'var(--accent)';
+                });
+                document.getElementById('recordSearch').addEventListener('blur', function() {
+                    this.style.borderColor = 'var(--border-color)';
+                });
+            </script>
+        </div>
+    </section>
+
+    <!-- Certifications & Patents Gallery -->
+    <section id="certs" class="section-padding" style="background: var(--white);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Quality Proof</span>
+                <h2 class="section-title">기술 및 인증서</h2>
+                <p class="section-desc">비에이텍의 대외 공신력과 정밀 안전을 입증하는 정부 및 전문 기관의 공식 확인 서류입니다.</p>
+            </div>
+
+            <div class="cert-grid">
+                <!-- Cert 1 -->
+                <div class="cert-card reveal">
+                    <div class="cert-badge">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h3 class="cert-title">ISO 9001 인증서</h3>
+                    <p class="cert-desc">비에이텍은 국제 표준 규격 품질 경영 관리 시스템 하에 펌프 제작 가공 및 현장 유지보수 표준 모델을 적용하고 있습니다.</p>
+                    <div class="cert-actions">
+                        <a href="iso9001.pdf" class="btn btn-dark open-pdf-modal" data-title="ISO 9001 인증서">인증서 보기 (PDF)</a>
+                        <a href="iso9001.pdf" class="btn btn-secondary" style="border-color: var(--border-color); color: var(--text-dark);" download>다운로드</a>
+                    </div>
+                </div>
+
+                <!-- Cert 2 -->
+                <div class="cert-card reveal">
+                    <div class="cert-badge">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="cert-title">KC 위생안전인증서</h3>
+                    <p class="cert-desc">공공 식수 공급망 펌프와 식음료 유체 라인 가공 시 환경 호르몬 및 중금속 안정성을 입증하는 대한민국 위생인증 규격 통과 완료.</p>
+                    <div class="cert-actions">
+                        <a href="kc.pdf" class="btn btn-dark open-pdf-modal" data-title="KC 위생안전인증서">인증서 보기 (PDF)</a>
+                        <a href="kc.pdf" class="btn btn-secondary" style="border-color: var(--border-color); color: var(--text-dark);" download>다운로드</a>
+                    </div>
+                </div>
+
+                <!-- Cert 3 -->
+                <div class="cert-card reveal">
+                    <div class="cert-badge">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="cert-title">메인비즈 확인서</h3>
+                    <p class="cert-desc">중소벤처기업부가 선정한 경영혁신형 중소기업(Main-Biz) 확인을 획득하여 안정적인 파트너십 재무 및 마케팅 구조를 확보하고 있습니다.</p>
+                    <div class="cert-actions">
+                        <a href="mainbiz.pdf" class="btn btn-dark open-pdf-modal" data-title="메인비즈 확인서">확인서 보기 (PDF)</a>
+                        <a href="mainbiz.pdf" class="btn btn-secondary" style="border-color: var(--border-color); color: var(--text-dark);" download>다운로드</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" class="pdf-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="pdf-modal-content" style="position: relative; width: 90%; max-width: 1000px; height: 90vh; background: #fff; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;">
+            <div class="pdf-modal-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--primary); color: #fff;">
+                <h3 id="pdfModalTitle" style="margin: 0; font-size: 1.2rem;">인증서 보기</h3>
+                <button id="pdfModalClose" style="background: none; border: none; color: #fff; cursor: pointer;"><i data-lucide="x" style="width: 24px; height: 24px;"></i></button>
+            </div>
+            <div class="pdf-modal-body" style="flex: 1; position: relative;">
+                <iframe id="pdfIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="floating-orbs">
+            <div class="floating-orb orb-blue"></div>
+            <div class="floating-orb orb-dark"></div>
+        </div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon" style="background: var(--accent);">
+                            <i data-lucide="droplets"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-title">(주)비에이텍</span>
+                            <span class="logo-sub" style="color: var(--white); opacity: 0.6;">B-ATEC Engineering</span>
+                        </div>
+                    </a>
+                    <p class="footer-desc">
+                        비에이텍은 정밀 공학 연구와 무결점 고객 지원을 바탕으로 공공 인프라 및 대형 플랜트 펌프 기술의 선두에 서 있습니다.
+                    </p>
+                </div>
+                <div class="footer-links-col">
+                    <h5 class="footer-links-title">주요 메뉴</h5>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">회사소개</a></li>
+                        <li><a href="products.html" class="footer-link">제품 및 기술</a></li>
+                        <li><a href="performance.html" class="footer-link">실적 및 인증</a></li>
+                        <li><a href="faq.html" class="footer-link">자주묻는질문</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <h5 class="footer-links-title">기술 센터</h5>
+                    <ul class="footer-links">
+                        <li><a href="maintenance_guide.pdf" class="footer-link" target="_blank">유지관리 지침서 (PDF)</a></li>
+                        <li><a href="company_profile.pdf" class="footer-link" target="_blank">비에이텍 지명원 (PDF)</a></li>
+                        <li><a href="brochure.pdf" class="footer-link" target="_blank">카탈로그/브로슈어 (PDF)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px;">
+                <div style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap;">
+                    <div class="map-container" style="width: 100%; max-width: 300px; height: 300px; flex-shrink: 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2); position: relative;">
+                        <div class="map-wrapper">
+                            <iframe src="https://maps.google.com/maps?q=37.842775,127.742352&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(20%);" allowfullscreen="" loading="lazy"></iframe>
+                            <div class="map-overlay-marker">
+                                <div class="marker-pin"></div>
+                                <div class="map-info-window" style="left: -40px; right: auto; transform: translateY(10px);">
+                                    <h4>(주)비에이텍</h4>
+                                    <p><i class="fas fa-map-marker-alt" style="margin-right:4px;"></i> 강원 춘천시 퇴계공단2길 64</p>
+                                    <p><i class="fas fa-phone" style="margin-right:4px;"></i> 033-264-9243</p>
+                                    <div class="map-actions">
+                                        <a href="https://map.kakao.com/link/map/(주)비에이텍,37.854890,127.733650" target="_blank" class="btn btn-primary" style="background:#FEE500; color:#000; padding:6px; font-size:0.7rem;">카카오맵</a>
+                                        <a href="https://map.naver.com/v5/search/강원 춘천시 퇴계공단2길 64" target="_blank" class="btn btn-primary" style="background:#03C75A; color:#FFF; padding:6px; font-size:0.7rem;">네이버</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-info" style="display: flex; flex-direction: column; justify-content: flex-end; gap: 4px;">
+                        <span>(주)비에이텍 | 대표이사: 조세연 | 사업자등록번호: 221-81-79342</span>
+                        <span>본사 및 공장: 강원특별자치도 춘천시 퇴계공단2길 64</span>
+                        <span>T. 033-264-9243 | F. 033-264-9244</span>
+                    </div>
+                </div>
+                <p class="copyright" style="margin-bottom: 0;">&copy; 2026 B-ATEC Co., Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Layout Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Lenis Smooth Scroll Initialisation
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Header Transparency on Scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger Menu Logic (Mobile Nav)
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Intersection Observer for scroll entrance animations (Reveal)
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15
+        });
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // PDF Modal Logic
+        const pdfModal = document.getElementById('pdfModal');
+        const pdfIframe = document.getElementById('pdfIframe');
+        const pdfModalClose = document.getElementById('pdfModalClose');
+        const pdfModalTitle = document.getElementById('pdfModalTitle');
+
+        if(pdfModal && pdfIframe && pdfModalClose && pdfModalTitle) {
+            document.querySelectorAll('.open-pdf-modal').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pdfUrl = btn.getAttribute('href');
+                    const title = btn.getAttribute('data-title');
+                    
+                    pdfIframe.src = pdfUrl;
+                    pdfModalTitle.textContent = title;
+                    pdfModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            pdfModalClose.addEventListener('click', () => {
+                pdfModal.style.display = 'none';
+                pdfIframe.src = '';
+                document.body.style.overflow = '';
+            });
+
+            // Close on outside click
+            pdfModal.addEventListener('click', (e) => {
+                if (e.target === pdfModal) {
+                    pdfModal.style.display = 'none';
+                    pdfIframe.src = '';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    </script>
+    <script src="audio-control.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>
